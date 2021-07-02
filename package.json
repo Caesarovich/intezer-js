@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
-    "build": "babel . -d build_output --out-file-extension .cjs"
+    "build": "babel . -d build_output --out-file-extension .js && cp babel-pack.json build_output/package.json"
   },
   "author": "Caesarovich",
   "license": "ISC",
