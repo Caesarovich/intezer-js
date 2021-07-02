@@ -1,7 +1,7 @@
 {
-  "name": "intezer-js",
-  "version": "0.2.0",
-  "description": "A Node.JS integration of Intezer's API",
+  "name": "intezer-js-pre",
+  "version": "0.1.0",
+  "description": "A Node.JS integration of Intezer's API. Pre-release version",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
