@@ -16,9 +16,17 @@ An **unofficial** Node.JS wrapper for [**Intezer Analyze**](https://analyze.inte
 
 #### Cloning from GitHub:
 
-\>To-Do<
+Follow these instructions to clone and use the project.
 
-### Current NodeJS LTS
+```sh
+# Clone the repo in your project directory
+git clone https://github.com/Caesarovich/intezer-js
+
+# Then install it to your project
+npm install intezer-js
+```
+
+### Current NodeJS LTS inferior to v16
 
 #### Using NPM:
 
@@ -26,7 +34,26 @@ An **unofficial** Node.JS wrapper for [**Intezer Analyze**](https://analyze.inte
 
 #### Cloning from GitHub:
 
-\>To-Do<
+Follow these instructions to clone and build a CommonJS module version of the project.
+
+```sh
+# Clone the repo
+git clone https://github.com/Caesarovich/intezer-js
+
+# Go inside the directory
+cd intezer-js
+
+# Install dependencies
+npm i
+
+# Build the compatible version
+npm run build
+
+# Then copy the 'build_output' directory and paste it where needed
+# Then rename it conveniently to 'intezer-js'
+# Finally install it to your project
+npm install intezer-js
+```
 
 ## ⏳ Quick start
 
