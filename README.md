@@ -143,11 +143,11 @@ async function myFunction() {
 
 ### Client
 
-\>To-Do<
+[Click here to open the wiki](https://github.com/Caesarovich/intezer-js/wiki/Client)
 
 ### Raw API
 
-\>To-Do<
+[Click here to open the wiki](https://github.com/Caesarovich/intezer-js/wiki/Raw-API)
 
 ## 📕 Reference documentation
 
