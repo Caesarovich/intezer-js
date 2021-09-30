@@ -1,0 +1,13 @@
+# Ignore npm stuff
+node_modules/
+package-lock.json
+
+# Ignore VSCode files
+.vscode/
+*.code-workspace
+
+# Ignore the test.exe file
+test.exe
+
+# Ignore the build directory
+built/
