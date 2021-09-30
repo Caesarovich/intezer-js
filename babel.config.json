@@ -1,7 +1,0 @@
-{
-  "plugins": ["transform-es2015-modules-commonjs"],
-  "targets": {
-    "node": "14"
-  },
-  "ignore": ["./node_modules"]
-}
