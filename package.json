@@ -1,25 +1,25 @@
 {
-  "name": "intezer-js",
-  "type": "module",
-  "version": "2.0.0",
-  "description": "A Node.JS integration of Intezer's API",
-  "main": "index.js",
-  "scripts": {
-    "test": "npm run check-format && npm run rebuild && npm run start",
+	"name": "intezer-js",
+	"type": "module",
+	"version": "2.0.0",
+	"description": "A Node.JS integration of Intezer's API",
+	"main": "built/index.js",
+	"scripts": {
+		"test": "npm run check-format && npm run rebuild && node built/test.js",
 		"format": "prettier -w src/*",
 		"check-format": "prettier -c src/*",
-		"start": "node .",
 		"build": "tsc",
 		"rebuild": "npm run clean && npm run build",
 		"clean": "rm -rf built"
-  },
-  "author": "Caesarovich",
-  "license": "ISC",
-  "dependencies": {
-    "form-data": "^4.0.0",
-    "js-sha256": "^0.9.0"
-  },
-  "devDependencies": {
-    "typescript": "^4.4.3"
-  }
+	},
+	"author": "Caesarovich",
+	"license": "ISC",
+	"dependencies": {
+		"form-data": "^4.0.0",
+		"js-sha256": "^0.9.0",
+		"prettier": "^2.4.1"
+	},
+	"devDependencies": {
+		"typescript": "^4.4.3"
+	}
 }
