@@ -1,3 +1,3 @@
-import type { RawFileData } from './RawFileData';
+import type { RawAnalysisData } from './RawAnalysisData';
 
-export { RawFileData };
+export { RawAnalysisData };

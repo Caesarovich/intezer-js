@@ -2,24 +2,24 @@ import gotClient from '../got-client';
 import type { RawAnalysisData } from '../interfaces';
 
 /**
- * Retrieve a file's information from the API.
+ * Retrieve an analysis result from the API.
  *
- * @function getFile
+ * @function getAnalysis
  * @param {string} accessToken A valid API Access token.
- * @param {string} fileHash The file's SHA256, SHA1 or MD5 hash.
- * @returns {Promise<RawAnalysisData>} File data.
+ * @param {string} analysisId The analysis ID.
+ * @returns {Promise<RawAnalysisData>} Analysis data.
  */
 
-function getFile(accessToken: string, fileHash: string): Promise<RawAnalysisData> {
+function getAnalysis(accessToken: string, analysisId: string): Promise<RawAnalysisData> {
 	return new Promise((resolve, reject) => {
 		if (!accessToken || typeof accessToken !== 'string')
 			return reject(new Error('No Access Token provided ! Refer to documentation.'));
 
-		if (!fileHash || typeof fileHash !== 'string')
-			return reject(new Error('No file hash ! Refer to documentation.'));
+		if (!analysisId || typeof analysisId !== 'string')
+			return reject(new Error('No analysis ID ! Refer to documentation.'));
 
 		gotClient
-			.get(`files/${fileHash}`, {
+			.get(`analyses/${analysisId}`, {
 				headers: {
 					authorization: accessToken,
 				},
@@ -32,4 +32,4 @@ function getFile(accessToken: string, fileHash: string): Promise<RawAnalysisData
 	});
 }
 
-export default getFile;
+export default getAnalysis;

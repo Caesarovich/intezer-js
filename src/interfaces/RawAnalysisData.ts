@@ -1,6 +1,6 @@
 import type { Verdict } from '../enums';
 
-export interface RawFileData {
+export interface RawAnalysisData {
 	analysis_id: string;
 	analysis_time: string;
 	analysis_url: string;

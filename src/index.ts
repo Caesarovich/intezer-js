@@ -1,3 +1,3 @@
-import { getAccessToken, getFile } from './raw-api';
+import { getAccessToken, getFile, getAnalysis } from './raw-api';
 
-export { getFile, getAccessToken };
+export { getFile, getAccessToken, getAnalysis };
