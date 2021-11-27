@@ -2,9 +2,25 @@
 	"compilerOptions": {
 		"outDir": "built",
 		"alwaysStrict": true,
-		"module": "ES6",
+		"module": "CommonJS",
+		"moduleResolution": "Node",
 		"target": "ES6",
-		"noImplicitOverride": true
+		"noImplicitOverride": true,
+		"declaration": true,
+		"declarationMap": true,
+		"importHelpers": true,
+		"incremental": true,
+		"newLine": "lf",
+		"noEmitHelpers": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"preserveConstEnums": true,
+		"pretty": true,
+		"removeComments": false,
+		"sourceMap": true,
+		"importsNotUsedAsValues": "error"
 	},
 	"include": ["src/**/*"]
 }
