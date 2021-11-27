@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"strict": true,
 		"outDir": "built",
 		"alwaysStrict": true,
 		"module": "CommonJS",
