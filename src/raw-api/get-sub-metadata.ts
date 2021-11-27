@@ -1,5 +1,5 @@
 import gotClient from '../got-client';
-import type { RawSubAnalysisData } from '../interfaces';
+import type { RawSubAnalysisMetadata } from '../interfaces';
 
 /**
  * Retrieve an analysis's sub-analyses from the API.
@@ -7,13 +7,15 @@ import type { RawSubAnalysisData } from '../interfaces';
  * @function getSubAnalyses
  * @param {string} accessToken A valid API Access token.
  * @param {string} analysisId The analysis ID.
- * @returns {PromiseArray<<RawSubAnalysisData>>} Array of SubAnalysis data.
+ * @param {string} subId The sub-analysis ID.
+ * @returns {Promise<RawSubAnalysisMetadata>} SubAnalysis data.
  */
 
-function getSubAnalyses(
+function getSubAnalysisMetadata(
 	accessToken: string,
-	analysisId: string
-): Promise<Array<RawSubAnalysisData>> {
+	analysisId: string,
+	subId: string
+): Promise<RawSubAnalysisMetadata> {
 	return new Promise((resolve, reject) => {
 		if (!accessToken || typeof accessToken !== 'string')
 			return reject(new Error('No Access Token provided ! Refer to documentation.'));
@@ -22,17 +24,17 @@ function getSubAnalyses(
 			return reject(new Error('No analysis ID ! Refer to documentation.'));
 
 		gotClient
-			.get(`analyses/${analysisId}/sub-analyses`, {
+			.get(`analyses/${analysisId}/sub-analyses/${subId}/metadata`, {
 				headers: {
 					authorization: accessToken,
 				},
 			})
 			.catch(reject)
 			.then((res) => {
-				if (res) resolve(JSON.parse(res.body).sub_analyses);
+				if (res) resolve(JSON.parse(res.body));
 				else reject(new Error('No Response'));
 			});
 	});
 }
 
-export default getSubAnalyses;
+export default getSubAnalysisMetadata;
