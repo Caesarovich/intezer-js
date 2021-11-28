@@ -1,20 +1,21 @@
 import gotClient from '../got-client';
 
 /**
- * Get an access token using your API Key.
+ * Gets an access token to be used in the authorization header of each request.
  *
- * @function getAccessToken
+ * Intezer provides an API key to be used in order to get this access token.
+ * Each access token is valid for 10 hours.
+ * Therefore, you should reuse the token for consecutive requests instead of creating a new one for each request.
+ *
  * @param {String} apiKey An Intezer's API Key.
- * @returns {Promise<String>} Access token.
+ * @returns {Promise<String>} A Bearer Access Token to be used in the authorization header of every API request.
  *
  * @see https://analyze.intezer.com/account-details
+ * @see https://analyze.intezer.com/api/docs/documentation#post-get-access-token
  */
 
 function getAccessToken(apiKey: string): Promise<string> {
 	return new Promise((resolve, reject) => {
-		if (!apiKey || typeof apiKey !== 'string')
-			return reject(new Error('No API Key provided ! Refer to documentation.'));
-
 		gotClient
 			.post('get-access-token', {
 				json: {

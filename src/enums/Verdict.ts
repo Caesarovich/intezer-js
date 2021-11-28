@@ -1,3 +1,6 @@
+/**
+ * The result of the analysis.
+ */
 export enum Verdict {
 	Malicious = 'malicious',
 	Trusted = 'trusted',

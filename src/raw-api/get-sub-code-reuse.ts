@@ -1,6 +1,15 @@
 import gotClient from '../got-client';
 import type { RawCodeReuseData } from '../interfaces';
 
+/**
+ * Gets code reuse findings in a specific file.
+ *
+ * @param {string} accessToken A valid API Access token.
+ * @param {string} analysisId The analysis ID.
+ * @param {string} subId The sub-analysis ID.
+ * @returns {Promise<RawCodeReuseData>} RawCodeReuseData.
+ */
+
 function getCodeReuse(
 	accessToken: string,
 	analysisId: string,

@@ -2,12 +2,13 @@ import gotClient from '../got-client';
 import type { RawSubAnalysisData } from '../interfaces';
 
 /**
- * Retrieve an analysis's sub-analyses from the API.
+ * Gets the list of sub-analysis-ids of a specific analysis id,
+ * including the sub-analysis-id of the root file.
+ * These sub-analysis-ids enable you to use other endpoints to get additional details about the analysis.
  *
- * @function getSubAnalyses
  * @param {string} accessToken A valid API Access token.
  * @param {string} analysisId The analysis ID.
- * @returns {PromiseArray<<RawSubAnalysisData>>} Array of SubAnalysis data.
+ * @returns {Promise<Array<RawSubAnalysisData>>} Array of RawSubAnalysisData.
  */
 
 function getSubAnalyses(
@@ -15,12 +16,6 @@ function getSubAnalyses(
 	analysisId: string
 ): Promise<Array<RawSubAnalysisData>> {
 	return new Promise((resolve, reject) => {
-		if (!accessToken || typeof accessToken !== 'string')
-			return reject(new Error('No Access Token provided ! Refer to documentation.'));
-
-		if (!analysisId || typeof analysisId !== 'string')
-			return reject(new Error('No analysis ID ! Refer to documentation.'));
-
 		gotClient
 			.get(`analyses/${analysisId}/sub-analyses`, {
 				headers: {

@@ -2,9 +2,8 @@ import gotClient from '../got-client';
 import type { RawAnalysisData } from '../interfaces';
 
 /**
- * Retrieve an analysis result from the API.
+ * This endpoint retrieves a summary of the analysis of an uploaded file, the summary provides high-level analysis results.
  *
- * @function getAnalysis
  * @param {string} accessToken A valid API Access token.
  * @param {string} analysisId The analysis ID.
  * @returns {Promise<RawAnalysisData>} Analysis data.
@@ -12,12 +11,6 @@ import type { RawAnalysisData } from '../interfaces';
 
 function getAnalysis(accessToken: string, analysisId: string): Promise<RawAnalysisData> {
 	return new Promise((resolve, reject) => {
-		if (!accessToken || typeof accessToken !== 'string')
-			return reject(new Error('No Access Token provided ! Refer to documentation.'));
-
-		if (!analysisId || typeof analysisId !== 'string')
-			return reject(new Error('No analysis ID ! Refer to documentation.'));
-
 		gotClient
 			.get(`analyses/${analysisId}`, {
 				headers: {

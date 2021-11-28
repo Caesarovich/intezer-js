@@ -2,22 +2,21 @@ import gotClient from '../got-client';
 import type { RawAnalysisData } from '../interfaces';
 
 /**
- * Retrieve a file's information from the API.
+ * This endpoint enables you to retrieve the latest available results
+ * of a previously analyze file by specifying its hash.
  *
- * @function getFile
+ * The response may return the HTTP status code 404,
+ * which indicates that the file is not available in Intezer Analyze.
+ *
  * @param {string} accessToken A valid API Access token.
  * @param {string} fileHash The file's SHA256, SHA1 or MD5 hash.
- * @returns {Promise<RawAnalysisData>} File data.
+ * @returns {Promise<RawAnalysisData>} Analysis data.
+ *
+ * @see https://analyze.intezer.com/api/docs/documentation#get-fileshash
  */
 
 function getFile(accessToken: string, fileHash: string): Promise<RawAnalysisData> {
 	return new Promise((resolve, reject) => {
-		if (!accessToken || typeof accessToken !== 'string')
-			return reject(new Error('No Access Token provided ! Refer to documentation.'));
-
-		if (!fileHash || typeof fileHash !== 'string')
-			return reject(new Error('No file hash ! Refer to documentation.'));
-
 		gotClient
 			.get(`files/${fileHash}`, {
 				headers: {

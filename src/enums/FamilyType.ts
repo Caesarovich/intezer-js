@@ -1,3 +1,7 @@
+/**
+ * The type of the family classification of this file.
+ */
+
 export enum FamilyType {
 	AdministrationTool = 'administration_tool',
 	Application = 'application',
