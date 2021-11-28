@@ -4,6 +4,7 @@ import getAnalysis from './get-analysis';
 import getSubAnalyses from './get-sub-analyses';
 import getSubAnalysisMetadata from './get-sub-metadata';
 import getAccountRelatedSamples from './get-sub-account-related-samples';
+import getCodeReuse from './get-sub-code-reuse';
 
 export {
 	getFile,
@@ -12,4 +13,5 @@ export {
 	getSubAnalyses,
 	getSubAnalysisMetadata,
 	getAccountRelatedSamples,
+	getCodeReuse,
 };
