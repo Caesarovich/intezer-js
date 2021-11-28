@@ -7,6 +7,8 @@ import type { RawAnalysisData } from '../interfaces';
  * @param {string} accessToken A valid API Access token.
  * @param {string} analysisId The analysis ID.
  * @returns {Promise<RawAnalysisData>} Analysis data.
+ *
+ * @see https://analyze.intezer.com/api/docs/documentation#get-analysesanalysis-id
  */
 
 function getAnalysis(accessToken: string, analysisId: string): Promise<RawAnalysisData> {

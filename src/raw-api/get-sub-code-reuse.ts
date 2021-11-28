@@ -8,6 +8,8 @@ import type { RawCodeReuseData } from '../interfaces';
  * @param {string} analysisId The analysis ID.
  * @param {string} subId The sub-analysis ID.
  * @returns {Promise<RawCodeReuseData>} RawCodeReuseData.
+ *
+ * @see https://analyze.intezer.com/api/docs/documentation#get-sub-analysiscode-reuse
  */
 
 function getCodeReuse(

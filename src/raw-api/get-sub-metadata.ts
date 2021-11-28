@@ -8,6 +8,8 @@ import type { RawSubAnalysisMetadata } from '../interfaces';
  * @param {string} analysisId The analysis ID.
  * @param {string} subId The sub-analysis ID.
  * @returns {Promise<RawSubAnalysisMetadata>} Sample metadata.
+ *
+ * @see https://analyze.intezer.com/api/docs/documentation#get-sub-analysismetadata
  */
 
 function getSubAnalysisMetadata(

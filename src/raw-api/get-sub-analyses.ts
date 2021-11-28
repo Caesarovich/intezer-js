@@ -9,6 +9,8 @@ import type { RawSubAnalysisData } from '../interfaces';
  * @param {string} accessToken A valid API Access token.
  * @param {string} analysisId The analysis ID.
  * @returns {Promise<Array<RawSubAnalysisData>>} Array of RawSubAnalysisData.
+ *
+ * @see https://analyze.intezer.com/api/docs/documentation#get-analysesanalysis-idsub-analyses
  */
 
 function getSubAnalyses(

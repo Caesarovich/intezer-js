@@ -8,6 +8,8 @@ import type { RawRelatedSampleData } from '../interfaces';
  * @param {string} analysisId The analysis ID.
  * @param {string} subId The sub-analysis ID.
  * @returns {Promise<Array<RawRelatedSampleData>>} An array of previously analyzed files.
+ *
+ * @see https://analyze.intezer.com/api/docs/documentation#post-sub-analysisget-account-related-samples
  */
 
 function getAccountRelatedSamples(

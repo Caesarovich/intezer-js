@@ -11,6 +11,8 @@ import type { RawFamilyRelatedFileData } from '../interfaces';
  * @param {string} subId The sub-analysis ID.
  * @param {string} subId The family ID.
  * @returns {Promise<Array<RawFamilyRelatedFileData>>} An array of family-related samples.
+ *
+ * @see https://analyze.intezer.com/api/docs/documentation#post-sub-analysiscode-reusefamiliesfamily-idfind-related-files
  */
 
 function getFamilyRelatedFiles(
