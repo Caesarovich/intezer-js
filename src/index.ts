@@ -6,6 +6,7 @@ import {
 	getSubAnalysisMetadata,
 	getAccountRelatedSamples,
 	getCodeReuse,
+	getFamilyRelatedFiles,
 } from './raw-api';
 
 export {
@@ -16,4 +17,5 @@ export {
 	getSubAnalysisMetadata,
 	getAccountRelatedSamples,
 	getCodeReuse,
+	getFamilyRelatedFiles,
 };

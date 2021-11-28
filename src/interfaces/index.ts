@@ -4,6 +4,7 @@ import type { RawExtractionData } from './RawExtractionData';
 import type { RawSubAnalysisMetadata } from './RawSubAnalysisMetadata';
 import type { RawRelatedSampleData } from './RawRelatedSampleData';
 import type { RawCodeReuseData } from './RawCodeReuseData';
+import type { RawFamilyRelatedFileData } from './RawFamilyRelatedFileData';
 
 export {
 	RawAnalysisData,
@@ -12,4 +13,5 @@ export {
 	RawSubAnalysisMetadata,
 	RawRelatedSampleData,
 	RawCodeReuseData,
+	RawFamilyRelatedFileData,
 };
