@@ -4,11 +4,7 @@ import type { RawAnalysisData } from '../interfaces';
 import type { ReadStream } from 'fs';
 
 /**
- * This endpoint enables you to retrieve the latest available results
- * of a previously analyze file by specifying its hash.
- *
- * The response may return the HTTP status code 404,
- * which indicates that the file is not available in Intezer Analyze.
+ * Submits a file to be analyzed.
  *
  * @param {string} accessToken A valid API Access token.
  * @param {string} readStream A valid ReadStream

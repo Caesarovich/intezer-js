@@ -12,6 +12,9 @@
 		"clean": "rm -rf built"
 	},
 	"author": "Caesarovich",
+	"repository": {
+		"url": "https://github.com/Caesarovich/intezer-js"
+	},
 	"license": "ISC",
 	"dependencies": {
 		"form-data": "^4.0.0",
