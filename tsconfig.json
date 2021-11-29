@@ -7,6 +7,7 @@
 		"moduleResolution": "Node",
 		"target": "ES6",
 		"noImplicitOverride": true,
+		"esModuleInterop": true,
 		"declaration": true,
 		"declarationMap": true,
 		"importHelpers": true,

@@ -7,6 +7,7 @@ import {
 	getAccountRelatedSamples,
 	getCodeReuse,
 	getFamilyRelatedFiles,
+	analyze,
 } from './raw-api';
 
 export {
@@ -18,4 +19,5 @@ export {
 	getAccountRelatedSamples,
 	getCodeReuse,
 	getFamilyRelatedFiles,
+	analyze,
 };
