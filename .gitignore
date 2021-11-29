@@ -6,8 +6,9 @@ package-lock.json
 .vscode/
 *.code-workspace
 
-# Ignore the test.exe file
+# Ignore the test files
 test.exe
+test.ts
 
 # Ignore the build directory
 built/
