@@ -2,9 +2,9 @@
 	"name": "intezer-js",
 	"version": "2.0.0",
 	"description": "A Node.JS integration of Intezer's API",
-	"main": "built/index.js",
+	"main": "dist/index.js",
 	"scripts": {
-		"test": "npm run check-format && npm run rebuild && node built/test.js",
+		"test": "npm run check-format && npm run rebuild && node dist/test.js",
 		"format": "prettier -w src/*",
 		"check-format": "prettier -c src/*",
 		"build": "tsc",

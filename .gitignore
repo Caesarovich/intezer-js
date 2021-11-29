@@ -10,5 +10,5 @@ package-lock.json
 test.exe
 test.ts
 
-# Ignore the build directory
-built/
+# Ignore the distribution directory
+dist

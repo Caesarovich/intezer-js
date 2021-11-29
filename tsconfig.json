@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"strict": true,
-		"outDir": "built",
+		"outDir": "dist",
 		"alwaysStrict": true,
 		"module": "CommonJS",
 		"moduleResolution": "Node",
