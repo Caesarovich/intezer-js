@@ -13,7 +13,7 @@ import type { RawSubAnalysisData } from '../interfaces';
  * @see https://analyze.intezer.com/api/docs/documentation#get-analysesanalysis-idsub-analyses
  */
 
-function getSubAnalyses(
+export function getSubAnalyses(
 	accessToken: string,
 	analysisId: string
 ): Promise<Array<RawSubAnalysisData>> {
@@ -31,5 +31,3 @@ function getSubAnalyses(
 			});
 	});
 }
-
-export default getSubAnalyses;

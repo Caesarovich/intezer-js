@@ -15,7 +15,7 @@ import type { RawAnalysisData } from '../interfaces';
  * @see https://analyze.intezer.com/api/docs/documentation#get-fileshash
  */
 
-function getFile(accessToken: string, fileHash: string): Promise<RawAnalysisData> {
+export function getFile(accessToken: string, fileHash: string): Promise<RawAnalysisData> {
 	return new Promise((resolve, reject) => {
 		gotClient
 			.get(`files/${fileHash}`, {
@@ -30,5 +30,3 @@ function getFile(accessToken: string, fileHash: string): Promise<RawAnalysisData
 			});
 	});
 }
-
-export default getFile;

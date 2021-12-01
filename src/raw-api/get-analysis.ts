@@ -11,7 +11,7 @@ import type { RawAnalysisData } from '../interfaces';
  * @see https://analyze.intezer.com/api/docs/documentation#get-analysesanalysis-id
  */
 
-function getAnalysis(accessToken: string, analysisId: string): Promise<RawAnalysisData> {
+export function getAnalysis(accessToken: string, analysisId: string): Promise<RawAnalysisData> {
 	return new Promise((resolve, reject) => {
 		gotClient
 			.get(`analyses/${analysisId}`, {
@@ -26,5 +26,3 @@ function getAnalysis(accessToken: string, analysisId: string): Promise<RawAnalys
 			});
 	});
 }
-
-export default getAnalysis;

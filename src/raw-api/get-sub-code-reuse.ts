@@ -12,7 +12,7 @@ import type { RawCodeReuseData } from '../interfaces';
  * @see https://analyze.intezer.com/api/docs/documentation#get-sub-analysiscode-reuse
  */
 
-function getCodeReuse(
+export function getCodeReuse(
 	accessToken: string,
 	analysisId: string,
 	subId: string
@@ -31,5 +31,3 @@ function getCodeReuse(
 			});
 	});
 }
-
-export default getCodeReuse;

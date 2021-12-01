@@ -13,7 +13,7 @@ import type { ReadStream } from 'fs';
  * @see https://analyze.intezer.com/api/docs/documentation#post-analyze
  */
 
-function analyze(accessToken: string, readStream: ReadStream): Promise<RawAnalysisData> {
+export function analyze(accessToken: string, readStream: ReadStream): Promise<RawAnalysisData> {
 	return new Promise((resolve, reject) => {
 		const form = new FormData();
 
@@ -44,5 +44,3 @@ function analyze(accessToken: string, readStream: ReadStream): Promise<RawAnalys
 			});
 	});
 }
-
-export default analyze;

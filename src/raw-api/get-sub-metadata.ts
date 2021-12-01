@@ -12,7 +12,7 @@ import type { RawSubAnalysisMetadata } from '../interfaces';
  * @see https://analyze.intezer.com/api/docs/documentation#get-sub-analysismetadata
  */
 
-function getSubAnalysisMetadata(
+export function getSubAnalysisMetadata(
 	accessToken: string,
 	analysisId: string,
 	subId: string
@@ -31,5 +31,3 @@ function getSubAnalysisMetadata(
 			});
 	});
 }
-
-export default getSubAnalysisMetadata;

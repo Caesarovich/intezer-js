@@ -12,7 +12,7 @@ import type { RawRelatedSampleData } from '../interfaces';
  * @see https://analyze.intezer.com/api/docs/documentation#post-sub-analysisget-account-related-samples
  */
 
-function getAccountRelatedSamples(
+export function getAccountRelatedSamples(
 	accessToken: string,
 	analysisId: string,
 	subId: string
@@ -31,5 +31,3 @@ function getAccountRelatedSamples(
 			});
 	});
 }
-
-export default getAccountRelatedSamples;

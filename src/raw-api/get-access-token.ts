@@ -14,7 +14,7 @@ import gotClient from '../got-client';
  * @see https://analyze.intezer.com/api/docs/documentation#post-get-access-token
  */
 
-function getAccessToken(apiKey: string): Promise<string> {
+export function getAccessToken(apiKey: string): Promise<string> {
 	return new Promise((resolve, reject) => {
 		gotClient
 			.post('get-access-token', {
@@ -29,5 +29,3 @@ function getAccessToken(apiKey: string): Promise<string> {
 			});
 	});
 }
-
-export default getAccessToken;

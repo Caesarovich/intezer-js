@@ -15,7 +15,7 @@ import type { RawFamilyRelatedFileData } from '../interfaces';
  * @see https://analyze.intezer.com/api/docs/documentation#post-sub-analysiscode-reusefamiliesfamily-idfind-related-files
  */
 
-function getFamilyRelatedFiles(
+export function getFamilyRelatedFiles(
 	accessToken: string,
 	analysisId: string,
 	subId: string,
@@ -49,5 +49,3 @@ function getFamilyRelatedFiles(
 			});
 	});
 }
-
-export default getFamilyRelatedFiles;
