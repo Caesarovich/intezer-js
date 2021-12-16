@@ -32,13 +32,25 @@ Follow these example to quickly start using the library.
 ### Get an access token and retrieve an analysis
 
 ```js
-import { getAccessToken, getAnalysis } from 'intezer-js';
+import { RawAPI } from 'intezer-js';
 
 //...
 
-const token = await getAccessToken('API_KEY').catch(console.error);
+const token = await RawAPI.getAccessToken('API_KEY').catch(console.error);
 
-const analysis = await getAnalysis(token, 'ANALYSIS_ID').catch(console.error);
+const analysis = await RawAPI.getAnalysis(token, 'ANALYSIS_ID').catch(console.error);
+```
+
+## Or with the Client
+
+```js
+import { Client } from 'intezer-js';
+
+//...
+
+const client = await new Client('API_KEY').init().catch(console.error);
+
+const analysis = await client.raw.getAnalysis('ANALYSIS_ID').catch(console.error);
 ```
 
 ## 📔 Reference documentation

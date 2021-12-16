@@ -9,7 +9,8 @@
 		"check-format": "prettier -c src/*",
 		"build": "tsc",
 		"rebuild": "npm run clean && npm run build",
-		"clean": "rm -rf dist"
+		"clean": "rm -rf dist",
+		"doc": "typedoc src/index.ts"
 	},
 	"author": "Caesarovich",
 	"repository": {
@@ -25,6 +26,7 @@
 	"devDependencies": {
 		"@types/node": "^16.10.2",
 		"tslib": "^2.3.1",
+		"typedoc": "^0.22.10",
 		"typescript": "^4.5.2"
 	}
 }
