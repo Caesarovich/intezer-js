@@ -5,3 +5,4 @@ export * from './RawSubAnalysisMetadata';
 export * from './RawRelatedSampleData';
 export * from './RawCodeReuseData';
 export * from './RawFamilyRelatedFileData';
+export * from './AnalyzeOptions';

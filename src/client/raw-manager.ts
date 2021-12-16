@@ -2,6 +2,7 @@ import type { ReadStream } from 'fs';
 import FormData = require('form-data');
 import type { Client } from '.';
 import type {
+	AnalyzeOptions,
 	RawAnalysisData,
 	RawCodeReuseData,
 	RawFamilyRelatedFileData,
@@ -16,21 +17,29 @@ export class RawManager extends Manager {
 	 * Submits a file to be analyzed.
 	 *
 	 * @param {string} readStream A valid ReadStream
+	 * @param {AnalyzeOptions} [options] Analysis options
 	 * @returns {Promise<RawAnalysisData>} Analysis data.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#post-analyze
 	 */
 
-	async analyze(readStream: ReadStream): Promise<RawAnalysisData> {
+	async analyze(readStream: ReadStream, options?: AnalyzeOptions): Promise<RawAnalysisData> {
 		const form = new FormData();
 
 		form.append('file', readStream);
+
+		if (options?.codeItemType) form.append('code_item_type', options.codeItemType);
+		if (options?.disableDynamicExecution)
+			form.append('disable_dynamic_execution', String(options.disableDynamicExecution));
+		if (options?.disableStaticExtraction)
+			form.append('disable_static_extraction', String(options.disableStaticExtraction));
+		if (options?.zipPassword) form.append('zip_password', options.zipPassword);
 
 		const res = await this.client.got.post(`analyze`, {
 			body: form,
 		});
 
-		return this.getAnalysis(JSON.parse(res.body).result_url.slice(1));
+		return this.getAnalysis(JSON.parse(res.body).result_url.slice(10));
 	}
 
 	/**
