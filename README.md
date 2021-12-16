@@ -29,14 +29,22 @@ Follow these example to quickly start using the library.
 
 > Note: You first need to [create an account](https://analyze.intezer.com/create-account) and get your [API Key](https://analyze.intezer.com/account-details).
 
-### Get an access token
+### Get an access token and retrieve an analysis
 
 ```js
-import { getAccessToken } from 'intezer-js';
+import { getAccessToken, getAnalysis } from 'intezer-js';
 
 //...
 
 const token = await getAccessToken('API_KEY').catch(console.error);
+
+const analysis = await getAnalysis(token, 'ANALYSIS_ID').catch(console.error);
 ```
 
-###
+## 📔 Reference documentation
+
+I used **[Intezer Analyze's API Documentation](https://analyze.intezer.com/api/docs/documentation)** as reference for this wrapper.
+
+### 📄 Disclosure
+
+This library is unofficial and not supported nor sustained by Intezer. Use it at your own risk !
