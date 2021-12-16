@@ -2,6 +2,8 @@
 
 ### An **unofficial** Node.JS wrapper for [Intezer Analyze](https://analyze.intezer.com/)'s API.
 
+### - 📕 Complete documentation [➡️here](https://caesarovich.github.io/intezer-js/)
+
 ## 📥 Installation
 
 ### Option 1 - **Install from NPM**
@@ -52,6 +54,10 @@ const client = await new Client('API_KEY').init().catch(console.error);
 
 const analysis = await client.raw.getAnalysis('ANALYSIS_ID').catch(console.error);
 ```
+
+## 📕 Documentation
+
+#### READ THE FULL DOCUMENTATION **[HERE](https://caesarovich.github.io/intezer-js/)**
 
 ## 📔 Reference documentation
 
