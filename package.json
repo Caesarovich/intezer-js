@@ -9,7 +9,7 @@
 		"check-format": "prettier -c src/*",
 		"build": "tsc",
 		"rebuild": "npm run clean && npm run build",
-		"clean": "rm -rf built"
+		"clean": "rm -rf dist"
 	},
 	"author": "Caesarovich",
 	"repository": {
