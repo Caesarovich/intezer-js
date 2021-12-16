@@ -10,7 +10,8 @@
 		"build": "tsc",
 		"rebuild": "npm run clean && npm run build",
 		"clean": "rm -rf dist",
-		"doc": "typedoc src/index.ts"
+		"doc": "typedoc src/index.ts",
+		"pub": "bash publish.sh"
 	},
 	"author": "Caesarovich",
 	"homepage": "https://caesarovich.github.io/intezer-js/",
