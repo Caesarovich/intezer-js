@@ -12,11 +12,17 @@ import type {
 } from '../interfaces';
 import { Manager } from './manager';
 
+/**
+ * This class is responsible for a Client's **Raw API interactions**.
+ * It provides the same functions exposed in the {@link RawAPI **RawAPI**} namespace.
+ * Except you don't have to provide an **AccessToken** as the Client handles it.
+ */
+
 export class RawManager extends Manager {
 	/**
 	 * Submits a file to be analyzed.
 	 *
-	 * @param {string} readStream A valid ReadStream
+	 * @param {string} readStream A valid {@link https://nodejs.org/api/all.html#all_fs.readstream **ReadStream**}
 	 * @param {AnalyzeOptions} [options] Analysis options
 	 * @returns {Promise<RawAnalysisData>} Analysis data.
 	 *

@@ -3,17 +3,40 @@ import gotClient from '../got-client';
 import { RawManager } from './raw-manager';
 import { AccessTokenManager } from './token-manager';
 
+/**
+ * The Client allows you an **easy** and **high-level interaction** with the API.
+ * It will handle the **AccessToken** renewals automatically for you so you never have to worry about tokens expiring.
+ */
+
 export class Client {
+	/**
+	 * The client's {@link AccessTokenManager **AccessTokenManager**}
+	 */
 	token: AccessTokenManager;
 
+	/**
+	 * The client's {@link https://www.npmjs.com/package/got **Got**} client
+	 */
 	got: Got;
 
+	/**
+	 * The client's {@link RawManager **RawManager**}, responsible for raw interactions with the API.
+	 */
 	raw: RawManager;
+
+	/**
+	 * Use this method to initialize the client before use.
+	 */
 
 	async init(): Promise<Client> {
 		await this.token.renew();
 		return this;
 	}
+
+	/**
+	 * You must provide a valid API Key.
+	 * You should call {@link Client.init **.init()**} before interacting with the client.
+	 */
 
 	constructor(apiKey: string) {
 		this.token = new AccessTokenManager(this, apiKey);
@@ -43,3 +66,5 @@ export class Client {
 		});
 	}
 }
+
+export { AccessTokenManager, RawManager };

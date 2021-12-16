@@ -1,33 +1,38 @@
 import type { Client } from '.';
 import { Manager } from './manager';
-import { getAccessToken } from '..';
+import { RawAPI } from '..';
 
 /**
- * The AccessTokenManager is responsible for the client's API Key and Access Tokens.
+ * The **AccessTokenManager** is responsible for the client's **API Key** and **AccessTokens**.
  */
 
 export class AccessTokenManager extends Manager {
 	/**
-	 * The client's API Key.
+	 * The client's **API Key**.
 	 */
 	apiKey: string;
 
 	/**
-	 * The current access token.
+	 * The current **AccessToken**.
 	 */
 	accessToken?: string;
 
+	/**
+	 * Get a valid **AccessToken**.
+	 * It either returns {@link AccessTokenManager.accessToken **.accessToken**}
+	 * or fetches a new one with {@link AccessTokenManager.renew **.renew()**}.
+	 */
 	async get(): Promise<string> {
 		if (this.accessToken) return this.accessToken;
 		return this.renew();
 	}
 
 	/**
-	 * Fetch and renew an Access Token.
-	 * @returns {string} The new access token
+	 * Fetch and renew {@link AccessTokenManager.accessToken **.accessToken**}.
+	 * @returns {string} The new **AccessToken**
 	 */
 	async renew(): Promise<string> {
-		this.accessToken = await getAccessToken(this.apiKey);
+		this.accessToken = await RawAPI.getAccessToken(this.apiKey);
 
 		const mergedOptions = this.client.got.mergeOptions(this.client.got.defaults.options, {
 			headers: {
