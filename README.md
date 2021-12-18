@@ -31,28 +31,34 @@ Follow these example to quickly start using the library.
 
 > Note: You first need to [create an account](https://analyze.intezer.com/create-account) and get your [API Key](https://analyze.intezer.com/account-details).
 
-### Get an access token and retrieve an analysis
-
-```js
-import { RawAPI } from 'intezer-js';
-
-//...
-
-const token = await RawAPI.getAccessToken('API_KEY').catch(console.error);
-
-const analysis = await RawAPI.getAnalysis(token, 'ANALYSIS_ID').catch(console.error);
-```
-
-## Or with the Client
+## Retrieve an analysis using the **Client**
 
 ```js
 import { Client } from 'intezer-js';
 
 //...
 
+// Instanciate a client with an API Key and initialise it.
 const client = await new Client('API_KEY').init().catch(console.error);
 
-const analysis = await client.raw.getAnalysis('ANALYSIS_ID').catch(console.error);
+// Retrieve an Analysis with an ID
+const analysis = await client.analysis.get('ANALYSIS_ID').catch(console.error);
+```
+
+### Or with the **RawAPI**
+
+> Note: _It is recommended to use the **Client** over the **RawAPI** because it provides much ease of use._
+
+```js
+import { RawAPI } from 'intezer-js';
+
+//...
+
+// Fetch an AccessToken using an API Key
+const token = await RawAPI.getAccessToken('API_KEY').catch(console.error);
+
+// Retrieve RawAnalysisData using the AccessToken and analysis ID.
+const analysis = await RawAPI.getAnalysis(token, 'ANALYSIS_ID').catch(console.error);
 ```
 
 ## 📕 Documentation

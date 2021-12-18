@@ -19,7 +19,7 @@ export class Analysis extends BaseManager {
 	url: string;
 
 	/**
-	 * The date that the analysis was executed.
+	 * The {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date **Date**} that the analysis was executed.
 	 */
 	time: Date;
 
