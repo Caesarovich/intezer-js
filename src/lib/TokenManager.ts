@@ -1,12 +1,12 @@
-import type { Client } from '.';
-import { Manager } from './manager';
+import type { Client } from '../client';
+import { BaseManager } from '.';
 import { RawAPI } from '..';
 
 /**
  * The **AccessTokenManager** is responsible for the client's **API Key** and **AccessTokens**.
  */
 
-export class AccessTokenManager extends Manager {
+export class AccessTokenManager extends BaseManager {
 	/**
 	 * The client's **API Key**.
 	 */

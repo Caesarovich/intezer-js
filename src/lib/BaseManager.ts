@@ -1,6 +1,9 @@
-import type { Client } from '.';
+import type { Client } from '..';
 
-export abstract class Manager {
+/**
+ * A base class self-referencing the client.
+ */
+export abstract class BaseManager {
 	/**
 	 * This Manager's {@link Client **Client**}
 	 */

@@ -1,6 +1,6 @@
 import type { ReadStream } from 'fs';
 import FormData = require('form-data');
-import type { Client } from '.';
+import type { Client } from '../client';
 import type {
 	AnalyzeOptions,
 	RawAnalysisData,
@@ -10,7 +10,7 @@ import type {
 	RawSubAnalysisData,
 	RawSubAnalysisMetadata,
 } from '../interfaces';
-import { Manager } from './manager';
+import { BaseManager } from '.';
 
 /**
  * This class is responsible for a Client's **Raw API interactions**.
@@ -18,7 +18,7 @@ import { Manager } from './manager';
  * Except you don't have to provide an **AccessToken** as the Client handles it.
  */
 
-export class RawManager extends Manager {
+export class RawManager extends BaseManager {
 	/**
 	 * Submits a file to be analyzed.
 	 *

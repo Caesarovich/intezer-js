@@ -6,3 +6,6 @@ export * from './RawRelatedSampleData';
 export * from './RawCodeReuseData';
 export * from './RawFamilyRelatedFileData';
 export * from './AnalyzeOptions';
+export * from './FetchOptions';
+export * from './GetOptions';
+export * from './ClientOptions';

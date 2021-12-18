@@ -1,7 +1,7 @@
-import type { Got } from 'got/dist/source';
-import gotClient from '../got-client';
-import { RawManager } from './raw-manager';
-import { AccessTokenManager } from './token-manager';
+import type { Got } from 'got';
+import gotClient from './got-client';
+import type { ClientOptions } from './interfaces';
+import { RawManager, AccessTokenManager, AnalysisManager } from './lib';
 
 /**
  * The Client allows you an **easy** and **high-level interaction** with the API.
@@ -9,6 +9,11 @@ import { AccessTokenManager } from './token-manager';
  */
 
 export class Client {
+	/**
+	 * The client's options.
+	 */
+	options: ClientOptions;
+
 	/**
 	 * The client's {@link AccessTokenManager **AccessTokenManager**}
 	 */
@@ -25,6 +30,11 @@ export class Client {
 	raw: RawManager;
 
 	/**
+	 * The client's {@link AnalysisManager **AnalysisManager**}
+	 */
+	analysis: AnalysisManager;
+
+	/**
 	 * Use this method to initialize the client before use.
 	 */
 
@@ -38,7 +48,10 @@ export class Client {
 	 * You should call {@link Client.init **.init()**} before interacting with the client.
 	 */
 
-	constructor(apiKey: string) {
+	constructor(apiKey: string, options?: ClientOptions) {
+		this.options = options ?? ({} as ClientOptions);
+		this.options.shouldCache ??= true;
+
 		this.token = new AccessTokenManager(this, apiKey);
 
 		this.raw = new RawManager(this);
@@ -64,7 +77,7 @@ export class Client {
 				],
 			},
 		});
+
+		this.analysis = new AnalysisManager(this);
 	}
 }
-
-export { AccessTokenManager, RawManager };

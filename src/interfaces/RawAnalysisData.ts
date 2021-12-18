@@ -45,7 +45,7 @@ export interface RawAnalysisData {
 	/**
 	 * The result of the analysis.
 	 */
-	verdict: Verdict | string;
+	verdict: Verdict;
 
 	/**
 	 * Additional details about the verdict.
