@@ -1,10 +1,29 @@
-import type { Client, FetchOptions, GetOptions } from '..';
+import type { AnalyzeOptions, Client, FetchOptions, GetOptions } from '..';
 import { Analysis, CachedManager } from '.';
+import type { ReadStream } from 'fs';
 
 /**
  * This Manager is responsible for fetching and caching Analyses results.
  */
 export class AnalysisManager extends CachedManager<String, Analysis> {
+	/**
+	 * Submits a file to be analyzed.
+	 *
+	 * @param readStream A valid {@link https://nodejs.org/api/all.html#all_fs.readstream **ReadStream**}
+	 * @param options
+	 * @returns
+	 */
+	async do(readStream: ReadStream, options: AnalyzeOptions): Promise<Analysis> {
+		const analysis = new Analysis(this.client, await this.client.raw.analyze(readStream, options));
+
+		if (this.client.options.shouldCache) {
+			this.cache.set(analysis.id, analysis);
+			this.cache.set(analysis.sha256, analysis);
+		}
+
+		return analysis;
+	}
+
 	/**
 	 * Fetch an Analysis from the API and cache it.
 	 *
@@ -14,7 +33,7 @@ export class AnalysisManager extends CachedManager<String, Analysis> {
 	async fetch(id: string, options?: FetchOptions): Promise<Analysis> {
 		const analysis = new Analysis(this.client, await this.client.raw.getAnalysis(id));
 
-		if (options?.shouldCache) {
+		if (options?.shouldCache ?? this.client.options.shouldCache) {
 			this.cache.set(analysis.id, analysis);
 			this.cache.set(analysis.sha256, analysis);
 		}
@@ -31,7 +50,7 @@ export class AnalysisManager extends CachedManager<String, Analysis> {
 	async fetchFile(hash: string, options?: FetchOptions): Promise<Analysis> {
 		const analysis = new Analysis(this.client, await this.client.raw.getFile(hash));
 
-		if (options?.shouldCache) {
+		if (options?.shouldCache ?? this.client.options.shouldCache) {
 			this.cache.set(analysis.id, analysis);
 			this.cache.set(analysis.sha256, analysis);
 		}
@@ -48,9 +67,8 @@ export class AnalysisManager extends CachedManager<String, Analysis> {
 	 */
 	async get(id: string, options?: GetOptions): Promise<Analysis> {
 		const cached = this.cache.get(id);
-		const skipCache = options?.skipCache ?? this.client.options.shouldCache;
 
-		return cached && !skipCache ? cached : await this.fetch(id, options);
+		return cached && !options?.skipCache ? cached : await this.fetch(id, options);
 	}
 
 	/**
