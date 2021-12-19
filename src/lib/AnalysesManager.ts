@@ -5,7 +5,7 @@ import type { ReadStream } from 'fs';
 /**
  * This Manager is responsible for fetching and caching Analyses results.
  */
-export class AnalysisManager extends CachedManager<String, Analysis> {
+export class AnalysesManager extends CachedManager<String, Analysis> {
 	/**
 	 * Submits a file to be analyzed.
 	 *
@@ -60,7 +60,7 @@ export class AnalysisManager extends CachedManager<String, Analysis> {
 
 	/**
 	 * Get an analysis either from the cache or by fetching it.
-	 * It is recommended for performance reasons to use this method instead of {@link AnalysisManager.fetch **.fetch()**}.
+	 * It is recommended for performance reasons to use this method instead of {@link AnalysesManager.fetch **.fetch()**}.
 	 *
 	 * @param id The analysis ID.
 	 * @param options
@@ -73,7 +73,7 @@ export class AnalysisManager extends CachedManager<String, Analysis> {
 
 	/**
 	 * Get an analysis either from the cache or by fetching it **using the file's SHA256/SHA1/MD5 Hash**.
-	 * It is recommended for performance reasons to use this method instead of {@link AnalysisManager.fetchFile **.fetchFile()**}.
+	 * It is recommended for performance reasons to use this method instead of {@link AnalysesManager.fetchFile **.fetchFile()**}.
 	 *
 	 * @param hash The file's SHA256/SHA1/MD5 Hash.
 	 * @param options

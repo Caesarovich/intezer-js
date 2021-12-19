@@ -1,7 +1,7 @@
 import type { Got } from 'got';
 import gotClient from './got-client';
 import type { ClientOptions } from './interfaces';
-import { RawManager, AccessTokenManager, AnalysisManager } from './lib';
+import { RawManager, AccessTokenManager, AnalysesManager, SubAnalysesManager } from './lib';
 
 /**
  * The Client allows you an **easy** and **high-level interaction** with the API.
@@ -30,14 +30,18 @@ export class Client {
 	raw: RawManager;
 
 	/**
-	 * The client's {@link AnalysisManager **AnalysisManager**}
+	 * The client's {@link AnalysesManager **AnalysesManager**}
 	 */
-	analysis: AnalysisManager;
+	analyses: AnalysesManager;
+
+	/**
+	 * The cleint's {@link SubAnalysesManager **SubAnalysesManager**}
+	 */
+	subAnalyses: SubAnalysesManager;
 
 	/**
 	 * Use this method to initialize the client before use.
 	 */
-
 	async init(): Promise<Client> {
 		await this.token.renew();
 		return this;
@@ -78,6 +82,7 @@ export class Client {
 			},
 		});
 
-		this.analysis = new AnalysisManager(this);
+		this.analyses = new AnalysesManager(this);
+		this.subAnalyses = new SubAnalysesManager(this);
 	}
 }

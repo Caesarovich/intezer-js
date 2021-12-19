@@ -42,7 +42,7 @@ import { Client } from 'intezer-js';
 const client = await new Client('API_KEY').init().catch(console.error);
 
 // Retrieve an Analysis with an ID
-const analysis = await client.analysis.get('ANALYSIS_ID').catch(console.error);
+const analysis = await client.analyses.get('ANALYSIS_ID').catch(console.error);
 ```
 
 ### Or with the **RawAPI**

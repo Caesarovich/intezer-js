@@ -1,5 +1,5 @@
 import { BaseManager } from '.';
-import type { Client, RawAnalysisData, Verdict } from '..';
+import { AnalysisSubAnalysesManager, Client, RawAnalysisData, Verdict } from '..';
 
 /**
  * The results of an Analysis.
@@ -56,6 +56,11 @@ export class Analysis extends BaseManager {
 	 */
 	subVerdict: string;
 
+	/**
+	 * This analysis's SubAnalyses Manager.
+	 */
+	subAnalyses: AnalysisSubAnalysesManager;
+
 	constructor(client: Client, data: RawAnalysisData) {
 		super(client);
 
@@ -68,5 +73,7 @@ export class Analysis extends BaseManager {
 		this.sha256 = data.sha256;
 		this.verdict = data.verdict;
 		this.subVerdict = data.sub_verdict;
+
+		this.subAnalyses = new AnalysisSubAnalysesManager(this);
 	}
 }
