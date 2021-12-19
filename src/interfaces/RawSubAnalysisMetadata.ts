@@ -8,7 +8,7 @@ export interface RawSubAnalysisMetadata {
 	md5: string;
 
 	/**
-	 * he SHA1 Hash of the file.
+	 * The SHA1 Hash of the file.
 	 */
 	sha1: string;
 
