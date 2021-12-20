@@ -1,6 +1,6 @@
 {
 	"name": "intezer-js",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"description": "A Node.JS integration of Intezer's API",
 	"main": "dist/index.js",
 	"scripts": {
