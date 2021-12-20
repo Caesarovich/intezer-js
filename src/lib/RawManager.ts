@@ -1,4 +1,3 @@
-import type { ReadStream } from 'fs';
 import FormData = require('form-data');
 import type { Client } from '../client';
 import type {
@@ -11,6 +10,7 @@ import type {
 	RawSubAnalysisMetadata,
 } from '../interfaces';
 import { BaseManager } from '.';
+import { FileResolvable, resolveFile } from '..';
 
 /**
  * This class is responsible for a Client's **Raw API interactions**.
@@ -22,17 +22,17 @@ export class RawManager extends BaseManager {
 	/**
 	 * Submits a file to be analyzed.
 	 *
-	 * @param {string} readStream A valid {@link https://nodejs.org/api/all.html#all_fs.readstream **ReadStream**}
+	 * @param {string} file The file to analyze
 	 * @param {AnalyzeOptions} [options] Analysis options
 	 * @returns {Promise<RawAnalysisData>} Analysis data.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#post-analyze
 	 */
 
-	async analyze(readStream: ReadStream, options?: AnalyzeOptions): Promise<RawAnalysisData> {
+	async analyze(file: FileResolvable, options?: AnalyzeOptions): Promise<RawAnalysisData> {
 		const form = new FormData();
 
-		form.append('file', readStream);
+		form.append('file', resolveFile(file));
 
 		if (options?.codeItemType) form.append('code_item_type', options.codeItemType);
 		if (options?.disableDynamicExecution)

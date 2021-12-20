@@ -1,6 +1,5 @@
-import type { AnalyzeOptions, Client, FetchOptions, GetOptions } from '..';
+import { AnalyzeOptions, Client, FetchOptions, FileResolvable, GetOptions, resolveFile } from '..';
 import { Analysis, CachedManager } from '.';
-import type { ReadStream } from 'fs';
 
 /**
  * This Manager is responsible for fetching and caching Analyses results.
@@ -9,12 +8,15 @@ export class AnalysesManager extends CachedManager<String, Analysis> {
 	/**
 	 * Submits a file to be analyzed.
 	 *
-	 * @param readStream A valid {@link https://nodejs.org/api/all.html#all_fs.readstream **ReadStream**}
+	 * @param file The file to analyze
 	 * @param options
 	 * @returns
 	 */
-	async do(readStream: ReadStream, options: AnalyzeOptions): Promise<Analysis> {
-		const analysis = new Analysis(this.client, await this.client.raw.analyze(readStream, options));
+	async do(file: FileResolvable, options: AnalyzeOptions): Promise<Analysis> {
+		const analysis = new Analysis(
+			this.client,
+			await this.client.raw.analyze(resolveFile(file), options)
+		);
 
 		if (this.client.options.shouldCache) {
 			this.cache.set(analysis.id, analysis);

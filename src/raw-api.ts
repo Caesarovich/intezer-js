@@ -1,14 +1,15 @@
-import type { ReadStream } from 'fs';
 import FormData = require('form-data');
 import gotClient from './got-client';
-import type {
+import {
 	AnalyzeOptions,
+	FileResolvable,
 	RawAnalysisData,
 	RawCodeReuseData,
 	RawFamilyRelatedFileData,
 	RawRelatedSampleData,
 	RawSubAnalysisData,
 	RawSubAnalysisMetadata,
+	resolveFile,
 } from '.';
 
 export namespace RawAPI {
@@ -39,7 +40,7 @@ export namespace RawAPI {
 	 * Submits a file to be analyzed.
 	 *
 	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
-	 * @param {string} readStream A valid {@link https://nodejs.org/api/all.html#all_fs.readstream **ReadStream**}
+	 * @param {string} file The file to analyze
 	 * @param {AnalyzeOptions} [options] Analysis options
 	 * @returns {Promise<RawAnalysisData>} Analysis data.
 	 *
@@ -47,12 +48,12 @@ export namespace RawAPI {
 	 */
 	export async function analyze(
 		token: string,
-		readStream: ReadStream,
+		file: FileResolvable,
 		options?: AnalyzeOptions
 	): Promise<RawAnalysisData> {
 		const form = new FormData();
 
-		form.append('file', readStream);
+		form.append('file', resolveFile(file));
 
 		if (options?.codeItemType) form.append('code_item_type', options.codeItemType);
 		if (options?.disableDynamicExecution)
