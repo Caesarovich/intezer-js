@@ -7,3 +7,5 @@ export * from './AnalysesManager';
 export * from './SubAnalysis';
 export * from './SubAnalysesManager';
 export * from './AnalysisSubAnalysesManager';
+export * from './SubAnalysisMetadata';
+export * from './AccountRelatedSample';
