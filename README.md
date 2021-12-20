@@ -2,7 +2,32 @@
 
 ### An **unofficial** Node.JS wrapper for [Intezer Analyze](https://analyze.intezer.com/)'s API.
 
-### - 📕 Complete documentation [➡️here](https://caesarovich.github.io/intezer-js/)
+### 📕 Complete documentation [➡️ here](https://caesarovich.github.io/intezer-js/)
+
+### To-do / API Coverage:
+
+This is a list of things that needs to be done before considering this library 'complete' (Objective v3.0)
+
+Raw API wrapping:
+
+- Community endpoints ✅
+- Premium endpoints ❌
+
+Client:
+
+- Analysis wrapping: ✅
+- SubAnalysis wrapping: ✅ / ❌
+- Families: ❌
+- Premium features: ❌
+- Client Options: ✅ / ❌
+
+Other:
+
+- Error wrapping/handling: ❌
+- Usage flexibility (resolvables): ❌
+- Make a user guide: ❌
+
+Please feel free to contribute !
 
 ## 📥 Installation
 
