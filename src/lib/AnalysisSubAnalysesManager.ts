@@ -10,6 +10,9 @@ export class AnalysisSubAnalysesManager extends CachedManager<string, SubAnalysi
 	 */
 	analysis: Analysis;
 
+	/**
+	 * Fetch all the SubAnalyses from the API and store it in the cache.
+	 */
 	async fetchAll(options?: FetchOptions): Promise<SubAnalysis[]> {
 		const results = await this.client.raw.getSubAnalyses(this.analysis.id);
 		const subAnalyses = results.map((v) => new SubAnalysis(this.analysis, v));
@@ -23,6 +26,9 @@ export class AnalysisSubAnalysesManager extends CachedManager<string, SubAnalysi
 		return subAnalyses;
 	}
 
+	/**
+	 * Fetch all the SubAnalyses from either the cache or by fetching it.
+	 */
 	async getAll(options?: GetOptions): Promise<SubAnalysis[]> {
 		return !options?.skipCache && this.cache.size > 0
 			? Array.from(this.cache.values())
