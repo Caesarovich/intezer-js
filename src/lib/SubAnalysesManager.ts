@@ -1,4 +1,4 @@
-import { BaseManager, Client, FetchOptions, GetOptions, SubAnalysis } from '..';
+import { AnalysisResolvable, BaseManager, Client, FetchOptions, GetOptions, SubAnalysis } from '..';
 
 /**
  * This manager gets you around with SubAnalysis related data.
@@ -7,8 +7,8 @@ export class SubAnalysesManager extends BaseManager {
 	/**
 	 * Fetch all the SubAnalyses from the API and store it in the cache.
 	 */
-	async fetchAll(analysisId: string, options: FetchOptions): Promise<SubAnalysis[]> {
-		const analysis = await this.client.analyses.fetch(analysisId, options);
+	async fetchAll(analysis: AnalysisResolvable, options: FetchOptions): Promise<SubAnalysis[]> {
+		analysis = await this.client.analyses.resolve(analysis, options);
 
 		return analysis.subAnalyses.fetchAll(options);
 	}
@@ -16,8 +16,8 @@ export class SubAnalysesManager extends BaseManager {
 	/**
 	 * Fetch all the SubAnalyses from either the cache or by fetching it.
 	 */
-	async getAll(analysisId: string, options: GetOptions): Promise<SubAnalysis[]> {
-		const analysis = await this.client.analyses.get(analysisId, options);
+	async getAll(analysis: AnalysisResolvable, options: GetOptions): Promise<SubAnalysis[]> {
+		analysis = await this.client.analyses.resolve(analysis, options);
 
 		return analysis.subAnalyses.getAll(options);
 	}

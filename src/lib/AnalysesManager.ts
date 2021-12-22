@@ -1,4 +1,12 @@
-import { AnalyzeOptions, Client, FetchOptions, FileResolvable, GetOptions, resolveFile } from '..';
+import {
+	AnalysisResolvable,
+	AnalyzeOptions,
+	Client,
+	FetchOptions,
+	FileResolvable,
+	GetOptions,
+	resolveFile,
+} from '..';
 import { Analysis, CachedManager } from '.';
 
 /**
@@ -85,6 +93,15 @@ export class AnalysesManager extends CachedManager<String, Analysis> {
 		const skipCache = options?.skipCache ?? this.client.options.shouldCache;
 
 		return cached && !skipCache ? cached : await this.fetchFile(hash, options);
+	}
+
+	/**
+	 * Resolves an {@link AnalysisResolvable **AnalysisResolvable**} into an {@link Analysis **Analysis**}.
+	 */
+	async resolve(analysis: AnalysisResolvable, options?: GetOptions): Promise<Analysis> {
+		if (typeof analysis === 'string') return this.get(analysis, options);
+
+		return analysis as Analysis;
 	}
 
 	constructor(client: Client) {
