@@ -1,4 +1,4 @@
-import { Analysis, CachedManager, FetchOptions, GetOptions } from '..';
+import { Analysis, AutoFetchLevels, CachedManager, FetchOptions, GetOptions } from '..';
 import { SubAnalysis } from './SubAnalysis';
 
 /**
@@ -17,11 +17,15 @@ export class AnalysisSubAnalysesManager extends CachedManager<string, SubAnalysi
 		const results = await this.client.raw.getSubAnalyses(this.analysis.id);
 		const subAnalyses = results.map((v) => new SubAnalysis(this.analysis, v));
 
-		if (options?.shouldCache ?? this.client.options.shouldCache) {
-			subAnalyses.forEach((v) => {
-				this.cache.set(v.id, v);
-			});
+		const autoFetches = [];
+
+		for (const sub of subAnalyses) {
+			if (options?.shouldCache ?? this.client.options.enableCache) this.cache.set(sub.id, sub);
+			if (options?.autoFetch.includes(AutoFetchLevels.Metadata))
+				autoFetches.push(sub.fetchMetadata(options));
 		}
+
+		await Promise.all(autoFetches);
 
 		return subAnalyses;
 	}

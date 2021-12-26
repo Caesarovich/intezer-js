@@ -1,4 +1,6 @@
 import type { Got } from 'got';
+import { AutoFetchLevels, ErrorTypes } from '.';
+import { IntezerError } from './errors';
 import gotClient from './got-client';
 import type { ClientOptions } from './interfaces';
 import { RawManager, AccessTokenManager, AnalysesManager, SubAnalysesManager } from './lib';
@@ -54,7 +56,9 @@ export class Client {
 
 	constructor(apiKey: string, options?: ClientOptions) {
 		this.options = options ?? ({} as ClientOptions);
-		this.options.shouldCache ??= true;
+		this.options.enableCache ??= true;
+		this.options.autoRenew ??= true;
+		this.options.autoFetch ??= [AutoFetchLevels.SubAnalyses];
 
 		this.token = new AccessTokenManager(this, apiKey);
 
@@ -69,18 +73,25 @@ export class Client {
 				afterResponse: [
 					async (response, retryWithMergedOptions) => {
 						if (response.statusCode === 401) {
-							const updatedOptions = {
-								headers: {
-									authorization: `Bearers ${await this.token.renew()}`,
-								},
-							};
-							return retryWithMergedOptions(updatedOptions);
+							if (this.options.autoRenew) {
+								const updatedOptions = {
+									headers: {
+										authorization: `Bearers ${await this.token.renew()}`,
+									},
+								};
+								return retryWithMergedOptions(updatedOptions);
+							} else
+								throw new IntezerError({
+									name: ErrorTypes.MissingAccess,
+								});
 						}
 						return response;
 					},
 				],
 			},
 		});
+
+		if (options?.got) this.got = this.got.extend(options.got);
 
 		this.analyses = new AnalysesManager(this);
 		this.subAnalyses = new SubAnalysesManager(this);

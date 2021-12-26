@@ -1,6 +1,7 @@
 import {
 	AnalysisResolvable,
 	AnalyzeOptions,
+	AutoFetchLevels,
 	Client,
 	FetchOptions,
 	FileResolvable,
@@ -26,7 +27,7 @@ export class AnalysesManager extends CachedManager<String, Analysis> {
 			await this.client.raw.analyze(resolveFile(file), options)
 		);
 
-		if (this.client.options.shouldCache) {
+		if (this.client.options.enableCache) {
 			this.cache.set(analysis.id, analysis);
 			this.cache.set(analysis.sha256, analysis);
 		}
@@ -43,10 +44,13 @@ export class AnalysesManager extends CachedManager<String, Analysis> {
 	async fetch(id: string, options?: FetchOptions): Promise<Analysis> {
 		const analysis = new Analysis(this.client, await this.client.raw.getAnalysis(id));
 
-		if (options?.shouldCache ?? this.client.options.shouldCache) {
+		if (options?.shouldCache ?? this.client.options.enableCache) {
 			this.cache.set(analysis.id, analysis);
 			this.cache.set(analysis.sha256, analysis);
 		}
+
+		if (options?.autoFetch?.includes(AutoFetchLevels.SubAnalyses))
+			await analysis.subAnalyses.fetchAll(options);
 
 		return analysis;
 	}
@@ -60,10 +64,13 @@ export class AnalysesManager extends CachedManager<String, Analysis> {
 	async fetchFile(hash: string, options?: FetchOptions): Promise<Analysis> {
 		const analysis = new Analysis(this.client, await this.client.raw.getFile(hash));
 
-		if (options?.shouldCache ?? this.client.options.shouldCache) {
+		if (options?.shouldCache ?? this.client.options.enableCache) {
 			this.cache.set(analysis.id, analysis);
 			this.cache.set(analysis.sha256, analysis);
 		}
+
+		if (options?.autoFetch?.includes(AutoFetchLevels.SubAnalyses))
+			await analysis.subAnalyses.fetchAll(options);
 
 		return analysis;
 	}
@@ -90,7 +97,7 @@ export class AnalysesManager extends CachedManager<String, Analysis> {
 	 */
 	async getFile(hash: string, options?: GetOptions): Promise<Analysis> {
 		const cached = this.cache.get(hash);
-		const skipCache = options?.skipCache ?? this.client.options.shouldCache;
+		const skipCache = options?.skipCache ?? this.client.options.enableCache;
 
 		return cached && !skipCache ? cached : await this.fetchFile(hash, options);
 	}

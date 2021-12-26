@@ -62,7 +62,7 @@ export class SubAnalysis extends BaseManager {
 			await this.client.raw.getSubAnalysisMetadata(this.analysis.id, this.id)
 		);
 
-		if (!options?.shouldCache ?? this.client.options.shouldCache) {
+		if (!options?.shouldCache ?? this.client.options.enableCache) {
 			this.metadata = metadata;
 		}
 
