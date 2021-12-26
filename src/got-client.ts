@@ -1,4 +1,5 @@
 import got from 'got';
+import { ErrorTypes } from '.';
 import { IntezerError } from './errors';
 
 const gotClient = got.extend({
@@ -30,7 +31,7 @@ const gotClient = got.extend({
 					if (data.status === 'failed')
 						throw new IntezerError({
 							message: data.error,
-							name: IntezerError.Types.Failed,
+							name: ErrorTypes.Failed,
 						});
 				}
 				return response;
@@ -43,32 +44,32 @@ const gotClient = got.extend({
 					case 400:
 						throw new IntezerError({
 							message: data.error,
-							name: IntezerError.Types.BadRequest,
+							name: ErrorTypes.BadRequest,
 						});
 					case 401:
 						throw new IntezerError({
 							message: data.error,
-							name: IntezerError.Types.MissingAccess,
+							name: ErrorTypes.MissingAccess,
 						});
 					case 404:
 						throw new IntezerError({
 							message: data.error,
-							name: IntezerError.Types.NotFound,
+							name: ErrorTypes.NotFound,
 						});
 					case 409:
 						throw new IntezerError({
 							message: data.error,
-							name: IntezerError.Types.Conflict,
+							name: ErrorTypes.Conflict,
 						});
 					case 410:
 						throw new IntezerError({
 							message: data.error,
-							name: IntezerError.Types.Expired,
+							name: ErrorTypes.Expired,
 						});
 					case 500:
 						throw new IntezerError({
 							message: data.error,
-							name: IntezerError.Types.Internal,
+							name: ErrorTypes.Internal,
 						});
 				}
 				return error;

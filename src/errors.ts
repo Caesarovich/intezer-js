@@ -1,3 +1,5 @@
+import type { ErrorTypes } from '.';
+
 export class IntezerError extends Error {
 	constructor(options: IntezerError.Options) {
 		super(options.message);
@@ -9,15 +11,6 @@ export class IntezerError extends Error {
 export namespace IntezerError {
 	export interface Options {
 		message?: string;
-		name: IntezerError.Types;
-	}
-	export enum Types {
-		NotFound = 'Not Found',
-		Conflict = 'Conflict Error',
-		Failed = 'Failed',
-		Expired = 'Expired',
-		Internal = 'Internal Error',
-		MissingAccess = 'Missing Access',
-		BadRequest = 'Bad Request',
+		name: ErrorTypes;
 	}
 }
