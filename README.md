@@ -19,12 +19,12 @@ Client:
 - SubAnalysis wrapping: ✅ / ❌
 - Families: ❌
 - Premium features: ❌
-- Client Options: ✅ / ❌
+- Client Options: ✅
 
 Other:
 
 - Error wrapping/handling: ❌
-- Usage flexibility (resolvables): ❌
+- Usage flexibility (resolvables): ✅
 - Make a user guide: ❌
 
 Please feel free to contribute !
