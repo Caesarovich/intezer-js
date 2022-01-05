@@ -1,4 +1,5 @@
-import { Analysis, BaseManager, RawRelatedSampleData, SubAnalysis } from '..';
+import type { RawRelatedSampleData } from '..';
+import { Analysis, BaseManager, SubAnalysis } from '.';
 
 /**
  * A previously analyzed sample which shares genes with a file.

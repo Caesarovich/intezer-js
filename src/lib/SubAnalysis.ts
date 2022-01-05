@@ -1,14 +1,5 @@
-import {
-	AccountRelatedSample,
-	Analysis,
-	BaseManager,
-	FetchOptions,
-	FileSource,
-	GetOptions,
-	RawExtractionData,
-	RawSubAnalysisData,
-	SubAnalysisMetadata,
-} from '..';
+import { AccountRelatedSample, Analysis, BaseManager, SubAnalysisMetadata } from '.';
+import { FetchOptions, FileSource, GetOptions, RawExtractionData, RawSubAnalysisData } from '..';
 
 export class SubAnalysis extends BaseManager {
 	/**

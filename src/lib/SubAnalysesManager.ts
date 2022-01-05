@@ -1,4 +1,5 @@
-import { AnalysisResolvable, BaseManager, Client, FetchOptions, GetOptions, SubAnalysis } from '..';
+import type { AnalysisResolvable, Client, FetchOptions, GetOptions } from '..';
+import { BaseManager, SubAnalysis } from '.';
 
 /**
  * This manager gets you around with SubAnalysis related data.

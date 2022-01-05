@@ -1,5 +1,5 @@
-import { Analysis, AutoFetchLevels, CachedManager, FetchOptions, GetOptions } from '..';
-import { SubAnalysis } from './SubAnalysis';
+import { AutoFetchLevels, FetchOptions, GetOptions } from '..';
+import { Analysis, SubAnalysis, CachedManager } from '.';
 
 /**
  * This Manager is responsible for fetching and caching the SubAnalyses of an Analysis.
@@ -21,7 +21,11 @@ export class AnalysisSubAnalysesManager extends CachedManager<string, SubAnalysi
 
 		for (const sub of subAnalyses) {
 			if (options?.shouldCache ?? this.client.options.enableCache) this.cache.set(sub.id, sub);
-			if (options?.autoFetch.includes(AutoFetchLevels.Metadata))
+			if (
+				options?.autoFetch
+					? options?.autoFetch.includes(AutoFetchLevels.Metadata)
+					: this.client.options.autoFetch?.includes(AutoFetchLevels.Metadata)
+			)
 				autoFetches.push(sub.fetchMetadata(options));
 		}
 

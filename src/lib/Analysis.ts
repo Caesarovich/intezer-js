@@ -1,5 +1,5 @@
-import { BaseManager } from '.';
-import { AnalysisSubAnalysesManager, Client, RawAnalysisData, Verdict } from '..';
+import { BaseManager, AnalysisSubAnalysesManager } from '.';
+import type { Client, RawAnalysisData, Verdict } from '..';
 
 /**
  * The results of an Analysis.

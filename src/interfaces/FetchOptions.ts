@@ -11,5 +11,5 @@ export interface FetchOptions {
 	/**
 	 * Override {@link Client.options.autoFetch}.
 	 */
-	autoFetch: AutoFetchLevels[];
+	autoFetch?: AutoFetchLevels[];
 }

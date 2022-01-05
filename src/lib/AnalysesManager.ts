@@ -2,11 +2,11 @@ import {
 	AnalysisResolvable,
 	AnalyzeOptions,
 	AutoFetchLevels,
-	Client,
 	FetchOptions,
 	FileResolvable,
 	GetOptions,
 	resolveFile,
+	Client,
 } from '..';
 import { Analysis, CachedManager } from '.';
 
@@ -49,7 +49,11 @@ export class AnalysesManager extends CachedManager<String, Analysis> {
 			this.cache.set(analysis.sha256, analysis);
 		}
 
-		if (options?.autoFetch?.includes(AutoFetchLevels.SubAnalyses))
+		if (
+			options?.autoFetch
+				? options?.autoFetch.includes(AutoFetchLevels.SubAnalyses)
+				: this.client.options.autoFetch?.includes(AutoFetchLevels.SubAnalyses)
+		)
 			await analysis.subAnalyses.fetchAll(options);
 
 		return analysis;
@@ -69,7 +73,11 @@ export class AnalysesManager extends CachedManager<String, Analysis> {
 			this.cache.set(analysis.sha256, analysis);
 		}
 
-		if (options?.autoFetch?.includes(AutoFetchLevels.SubAnalyses))
+		if (
+			options?.autoFetch
+				? options?.autoFetch.includes(AutoFetchLevels.SubAnalyses)
+				: this.client.options.autoFetch?.includes(AutoFetchLevels.SubAnalyses)
+		)
 			await analysis.subAnalyses.fetchAll(options);
 
 		return analysis;
