@@ -3,7 +3,7 @@ import { AutoFetchLevels, ErrorTypes } from '.';
 import { IntezerError } from './errors';
 import gotClient from './got-client';
 import type { ClientOptions } from './interfaces';
-import { RawManager, AccessTokenManager, AnalysesManager, SubAnalysesManager } from './lib';
+import { APIManager, AccessTokenManager, AnalysesManager, SubAnalysesManager } from './lib';
 
 /**
  * The Client allows you an **easy** and **high-level interaction** with the API.
@@ -27,9 +27,9 @@ export class Client {
 	got: Got;
 
 	/**
-	 * The client's {@link RawManager **RawManager**}, responsible for raw interactions with the API.
+	 * The client's {@link Manager **Manager**}, responsible for raw interactions with the API.
 	 */
-	raw: RawManager;
+	raw: APIManager;
 
 	/**
 	 * The client's {@link AnalysesManager **AnalysesManager**}
@@ -62,7 +62,7 @@ export class Client {
 
 		this.token = new AccessTokenManager(this, apiKey);
 
-		this.raw = new RawManager(this);
+		this.raw = new APIManager(this);
 
 		this.got = gotClient.extend({
 			retry: {

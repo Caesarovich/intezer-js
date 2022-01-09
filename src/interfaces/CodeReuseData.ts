@@ -1,6 +1,6 @@
 import type { GeneType, FamilyType } from '../enums';
 
-export interface RawCodeReuseData {
+export interface CodeReuseData {
 	/**
 	 * Specifies the type of the analyzed file.
 	 * Intezer adds additional formats from time to time and will notify you accordingly.

@@ -1,4 +1,4 @@
-import type { RawRelatedSampleData } from '..';
+import type { RelatedSampleData } from '..';
 import { Analysis, BaseManager, SubAnalysis } from '.';
 
 /**
@@ -20,7 +20,7 @@ export class AccountRelatedSample extends BaseManager {
 	 */
 	relatedTo: SubAnalysis;
 
-	constructor(subAnalysis: SubAnalysis, data: RawRelatedSampleData, analysis: Analysis) {
+	constructor(subAnalysis: SubAnalysis, data: RelatedSampleData, analysis: Analysis) {
 		super(subAnalysis.client);
 
 		this.reusedGenesCount = data.reused_genes.gene_count;

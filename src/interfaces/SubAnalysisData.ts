@@ -1,10 +1,10 @@
-import type { RawExtractionData } from './RawExtractionData';
+import type { ExtractionData } from './ExtractionData';
 import type { FileSource } from '../enums';
 
 /**
  * Details about a sub-analysis.
  */
-export interface RawSubAnalysisData {
+export interface SubAnalysisData {
 	/**
 	 * A unique identifier assigned to the results of each child file.
 	 * The results of the root file uploaded for analysis is also assigned a **sub_analysis_id**.
@@ -22,5 +22,5 @@ export interface RawSubAnalysisData {
 	 * This optional property is not relevant for the root file.
 	 * This field provides additional information about the Dynamic Execution or Static Extraction process.
 	 */
-	extraction_info?: RawExtractionData;
+	extraction_info?: ExtractionData;
 }

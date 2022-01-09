@@ -1,7 +1,7 @@
 /**
  * Details about a family-related file.
  */
-export interface RawFamilyRelatedFileData {
+export interface FamilyRelatedFileData {
 	/**
 	 * The SHA256 Hash of the file.
 	 */

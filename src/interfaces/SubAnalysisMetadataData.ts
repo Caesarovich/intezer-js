@@ -1,7 +1,7 @@
 /**
  * Details about a samples' metadata.
  */
-export interface RawSubAnalysisMetadata {
+export interface SubAnalysisMetadataData {
 	/**
 	 * The MD5 Hash of the file.
 	 */

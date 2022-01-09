@@ -3,16 +3,27 @@ import gotClient from './got-client';
 import {
 	AnalyzeOptions,
 	FileResolvable,
-	RawAnalysisData,
-	RawCodeReuseData,
-	RawFamilyRelatedFileData,
-	RawRelatedSampleData,
-	RawSubAnalysisData,
-	RawSubAnalysisMetadata,
+	AnalysisData,
+	CodeReuseData,
+	FamilyRelatedFileData,
+	RelatedSampleData,
+	SubAnalysisData,
+	SubAnalysisMetadata,
 	resolveFile,
 } from '.';
 
-export namespace RawAPI {
+export namespace API {
+	/**
+	 *	Return whether Intezer Analyze is available.
+	 *
+	 *	@returns {Promise<Boolean>}
+	 */
+	export async function isAvailable(): Promise<Boolean> {
+		const res = await gotClient('is-available');
+
+		return JSON.parse(res.body).is_available;
+	}
+
 	/**
 	 * Gets an access token to be used in the authorization header of each request.
 	 *
@@ -39,10 +50,10 @@ export namespace RawAPI {
 	/**
 	 * Submits a file to be analyzed.
 	 *
-	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
 	 * @param {string} file The file to analyze
 	 * @param {AnalyzeOptions} [options] Analysis options
-	 * @returns {Promise<RawAnalysisData>} Analysis data.
+	 * @returns {Promise<AnalysisData>} Analysis data.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#post-analyze
 	 */
@@ -50,7 +61,7 @@ export namespace RawAPI {
 		token: string,
 		file: FileResolvable,
 		options?: AnalyzeOptions
-	): Promise<RawAnalysisData> {
+	): Promise<AnalysisData> {
 		const form = new FormData();
 
 		form.append('file', resolveFile(file));
@@ -69,7 +80,7 @@ export namespace RawAPI {
 			body: form,
 		});
 
-		return RawAPI.getAnalysis(token, JSON.parse(res.body).result_url.slice(10));
+		return API.getAnalysis(token, JSON.parse(res.body).result_url.slice(10));
 	}
 
 	/**
@@ -79,13 +90,13 @@ export namespace RawAPI {
 	 * The response may return the HTTP status code 404,
 	 * which indicates that the file is not available in Intezer Analyze.
 	 *
-	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
 	 * @param {string} fileHash The file's SHA256, SHA1 or MD5 hash.
-	 * @returns {Promise<RawAnalysisData>} Analysis data.
+	 * @returns {Promise<AnalysisData>} Analysis data.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-fileshash
 	 */
-	export async function getFile(token: string, fileHash: string): Promise<RawAnalysisData> {
+	export async function getFile(token: string, fileHash: string): Promise<AnalysisData> {
 		const res = await gotClient.get(`files/${fileHash}`, {
 			headers: {
 				authorization: token,
@@ -98,13 +109,13 @@ export namespace RawAPI {
 	/**
 	 * This endpoint retrieves a summary of the analysis of an uploaded file, the summary provides high-level analysis results.
 	 *
-	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
 	 * @param {string} analysisId The analysis ID.
-	 * @returns {Promise<RawAnalysisData>} Analysis data.
+	 * @returns {Promise<AnalysisData>} Analysis data.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-analysesanalysis-id
 	 */
-	export async function getAnalysis(token: string, analysisId: string): Promise<RawAnalysisData> {
+	export async function getAnalysis(token: string, analysisId: string): Promise<AnalysisData> {
 		const res = await gotClient.get(`analyses/${analysisId}`, {
 			headers: {
 				authorization: token,
@@ -119,16 +130,16 @@ export namespace RawAPI {
 	 * including the sub-analysis-id of the root file.
 	 * These sub-analysis-ids enable you to use other endpoints to get additional details about the analysis.
 	 *
-	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
 	 * @param {string} analysisId The analysis ID.
-	 * @returns {Promise<Array<RawSubAnalysisData>>} Array of RawSubAnalysisData.
+	 * @returns {Promise<Array<SubAnalysisData>>} Array of SubAnalysisData.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-analysesanalysis-idsub-analyses
 	 */
 	export async function getSubAnalyses(
 		token: string,
 		analysisId: string
-	): Promise<Array<RawSubAnalysisData>> {
+	): Promise<Array<SubAnalysisData>> {
 		const res = await gotClient.get(`analyses/${analysisId}/sub-analyses`, {
 			headers: {
 				authorization: token,
@@ -141,10 +152,10 @@ export namespace RawAPI {
 	/**
 	 * Gets the sample's metadata.
 	 *
-	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
 	 * @param {string} analysisId The analysis ID.
 	 * @param {string} subId The sub-analysis ID.
-	 * @returns {Promise<RawSubAnalysisMetadata>} Sample metadata.
+	 * @returns {Promise<SubAnalysisMetadata>} Sample metadata.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-sub-analysismetadata
 	 */
@@ -152,7 +163,7 @@ export namespace RawAPI {
 		token: string,
 		analysisId: string,
 		subId: string
-	): Promise<RawSubAnalysisMetadata> {
+	): Promise<SubAnalysisMetadata> {
 		const res = await gotClient.get(`analyses/${analysisId}/sub-analyses/${subId}/metadata`, {
 			headers: {
 				authorization: token,
@@ -165,10 +176,10 @@ export namespace RawAPI {
 	/**
 	 * Gets a list of your previously analyzed samples that share code with the analyzed file.
 	 *
-	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
 	 * @param {string} analysisId The analysis ID.
 	 * @param {string} subId The sub-analysis ID.
-	 * @returns {Promise<RawRelatedSampleData[]>} An array of previously analyzed files.
+	 * @returns {Promise<RelatedSampleData[]>} An array of previously analyzed files.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#post-sub-analysisget-account-related-samples
 	 */
@@ -177,7 +188,7 @@ export namespace RawAPI {
 		token: string,
 		analysisId: string,
 		subId: string
-	): Promise<RawRelatedSampleData[]> {
+	): Promise<RelatedSampleData[]> {
 		const res = await gotClient.get(
 			`analyses/${analysisId}/sub-analyses/${subId}/get-account-related-samples`,
 			{
@@ -192,10 +203,10 @@ export namespace RawAPI {
 	/**
 	 * Gets code reuse findings in a specific file.
 	 *
-	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
 	 * @param {string} analysisId The analysis ID.
 	 * @param {string} subId The sub-analysis ID.
-	 * @returns {Promise<RawCodeReuseData>} RawCodeReuseData.
+	 * @returns {Promise<CodeReuseData>} CodeReuseData.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-sub-analysiscode-reuse
 	 */
@@ -203,7 +214,7 @@ export namespace RawAPI {
 		token: string,
 		analysisId: string,
 		subId: string
-	): Promise<RawCodeReuseData> {
+	): Promise<CodeReuseData> {
 		const res = await gotClient.get(`analyses/${analysisId}/sub-analyses/${subId}/code-reuse`, {
 			headers: {
 				authorization: token,
@@ -218,11 +229,11 @@ export namespace RawAPI {
 	 * Intezer Genome Database that share code with the family
 	 * detected in the analyzed file.
 	 *
-	 * @param {string} token A valid API Access token. Get one with {@link RawAPI.getAccessToken **getAccessToken**}
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
 	 * @param {string} analysisId The analysis ID.
 	 * @param {string} subId The sub-analysis ID.
 	 * @param {string} subId The family ID.
-	 * @returns {Promise<RawFamilyRelatedFileData[]>} An array of family-related samples.
+	 * @returns {Promise<FamilyRelatedFileData[]>} An array of family-related samples.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#post-sub-analysiscode-reusefamiliesfamily-idfind-related-files
 	 */
@@ -231,7 +242,7 @@ export namespace RawAPI {
 		analysisId: string,
 		subId: string,
 		familyId: string
-	): Promise<RawFamilyRelatedFileData[]> {
+	): Promise<FamilyRelatedFileData[]> {
 		let res = await gotClient.post(
 			`analyses/${analysisId}/sub-analyses/${subId}/code-reuse/families/${familyId}/find-related-files`,
 			{

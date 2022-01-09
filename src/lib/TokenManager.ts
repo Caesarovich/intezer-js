@@ -1,6 +1,6 @@
 import type { Client } from '../client';
 import { BaseManager } from '.';
-import { RawAPI } from '..';
+import { API } from '..';
 
 /**
  * The **AccessTokenManager** is responsible for the client's **API Key** and **AccessTokens**.
@@ -32,7 +32,7 @@ export class AccessTokenManager extends BaseManager {
 	 * @returns {string} The new **AccessToken**
 	 */
 	async renew(): Promise<string> {
-		this.accessToken = await RawAPI.getAccessToken(this.apiKey);
+		this.accessToken = await API.getAccessToken(this.apiKey);
 
 		const mergedOptions = this.client.got.mergeOptions(this.client.got.defaults.options, {
 			headers: {

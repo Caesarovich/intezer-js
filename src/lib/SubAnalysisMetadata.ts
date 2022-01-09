@@ -1,4 +1,4 @@
-import type { RawSubAnalysisMetadata } from '..';
+import type { SubAnalysisMetadataData } from '../interfaces';
 
 export class SubAnalysisMetadata {
 	/**
@@ -61,7 +61,7 @@ export class SubAnalysisMetadata {
 	 */
 	compilationTimestamp?: string;
 
-	constructor(data: RawSubAnalysisMetadata) {
+	constructor(data: SubAnalysisMetadataData) {
 		this.md5 = data.md5;
 		this.sha1 = data.sha1;
 		this.sha256 = data.sha256;

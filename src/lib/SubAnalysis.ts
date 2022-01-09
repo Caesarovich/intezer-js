@@ -1,5 +1,5 @@
 import { AccountRelatedSample, Analysis, BaseManager, SubAnalysisMetadata } from '.';
-import { FetchOptions, FileSource, GetOptions, RawExtractionData, RawSubAnalysisData } from '..';
+import { FetchOptions, FileSource, GetOptions, ExtractionData, SubAnalysisData } from '..';
 
 export class SubAnalysis extends BaseManager {
 	/**
@@ -38,7 +38,7 @@ export class SubAnalysis extends BaseManager {
 	 *
 	 * TODO: I need to understand better what this dataset consists of before correctly integrating it.
 	 */
-	extractionInfo?: RawExtractionData;
+	extractionInfo?: ExtractionData;
 
 	/**
 	 * This sample's metadata.
@@ -87,7 +87,7 @@ export class SubAnalysis extends BaseManager {
 		return relatedSamples;
 	}
 
-	constructor(analysis: Analysis, data: RawSubAnalysisData) {
+	constructor(analysis: Analysis, data: SubAnalysisData) {
 		super(analysis.client);
 
 		this.analysis = analysis;

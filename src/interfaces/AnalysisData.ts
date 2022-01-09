@@ -1,6 +1,6 @@
 import type { Verdict } from '../enums';
 
-export interface RawAnalysisData {
+export interface AnalysisData {
 	/**
 	 * A unique identifier assigned to the results of this analysis.
 	 * This identifier can be used in other endpoints in order to retrieve

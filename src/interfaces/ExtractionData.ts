@@ -4,7 +4,7 @@
  *
  * TODO: Find out an exact documentation about this data
  */
-export interface RawExtractionData {
+export interface ExtractionData {
 	collected_from: 'memory' | 'disk' | string;
 	processes: {
 		module_path: string;

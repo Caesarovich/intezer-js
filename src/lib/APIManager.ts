@@ -2,34 +2,34 @@ import FormData = require('form-data');
 import type { Client } from '../client';
 import type {
 	AnalyzeOptions,
-	RawAnalysisData,
-	RawCodeReuseData,
-	RawFamilyRelatedFileData,
-	RawRelatedSampleData,
-	RawSubAnalysisData,
-	RawSubAnalysisMetadata,
+	AnalysisData,
+	CodeReuseData,
+	FamilyRelatedFileData,
+	RelatedSampleData,
+	SubAnalysisData,
+	SubAnalysisMetadataData,
 } from '../interfaces';
 import { BaseManager } from '.';
 import { FileResolvable, resolveFile } from '..';
 
 /**
- * This class is responsible for a Client's **Raw API interactions**.
- * It provides the same functions exposed in the {@link RawAPI **RawAPI**} namespace.
+ * This class is responsible for a Client's **API interactions**.
+ * It provides the same functions exposed in the {@link API **API**} namespace.
  * Except you don't have to provide an **AccessToken** as the Client handles it.
  */
 
-export class RawManager extends BaseManager {
+export class APIManager extends BaseManager {
 	/**
 	 * Submits a file to be analyzed.
 	 *
 	 * @param {string} file The file to analyze
 	 * @param {AnalyzeOptions} [options] Analysis options
-	 * @returns {Promise<RawAnalysisData>} Analysis data.
+	 * @returns {Promise<AnalysisData>} Analysis data.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#post-analyze
 	 */
 
-	async analyze(file: FileResolvable, options?: AnalyzeOptions): Promise<RawAnalysisData> {
+	async analyze(file: FileResolvable, options?: AnalyzeOptions): Promise<AnalysisData> {
 		const form = new FormData();
 
 		form.append('file', resolveFile(file));
@@ -52,12 +52,12 @@ export class RawManager extends BaseManager {
 	 * This endpoint retrieves a summary of the analysis of an uploaded file, the summary provides high-level analysis results.
 	 *
 	 * @param {string} analysisId The analysis ID.
-	 * @returns {Promise<RawAnalysisData>} Analysis data.
+	 * @returns {Promise<AnalysisData>} Analysis data.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-analysesanalysis-id
 	 */
 
-	async getAnalysis(analysisId: string): Promise<RawAnalysisData> {
+	async getAnalysis(analysisId: string): Promise<AnalysisData> {
 		const res = await this.client.got.get(`analyses/${analysisId}`);
 		return JSON.parse(res.body).result;
 	}
@@ -70,12 +70,12 @@ export class RawManager extends BaseManager {
 	 * which indicates that the file is not available in Intezer Analyze.
 	 *
 	 * @param {string} fileHash The file's SHA256, SHA1 or MD5 hash.
-	 * @returns {Promise<RawAnalysisData>} Analysis data.
+	 * @returns {Promise<AnalysisData>} Analysis data.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-fileshash
 	 */
 
-	async getFile(fileHash: string): Promise<RawAnalysisData> {
+	async getFile(fileHash: string): Promise<AnalysisData> {
 		const res = await this.client.got.get(`files/${fileHash}`);
 		return JSON.parse(res.body).result;
 	}
@@ -86,12 +86,12 @@ export class RawManager extends BaseManager {
 	 * These sub-analysis-ids enable you to use other endpoints to get additional details about the analysis.
 	 *
 	 * @param {string} analysisId The analysis ID.
-	 * @returns {Promise<Array<RawSubAnalysisData>>} Array of RawSubAnalysisData.
+	 * @returns {Promise<Array<SubAnalysisData>>} Array of SubAnalysisData.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-analysesanalysis-idsub-analyses
 	 */
 
-	async getSubAnalyses(analysisId: string): Promise<Array<RawSubAnalysisData>> {
+	async getSubAnalyses(analysisId: string): Promise<Array<SubAnalysisData>> {
 		const res = await this.client.got.get(`analyses/${analysisId}/sub-analyses`);
 		return JSON.parse(res.body).sub_analyses;
 	}
@@ -101,12 +101,15 @@ export class RawManager extends BaseManager {
 	 *
 	 * @param {string} analysisId The analysis ID.
 	 * @param {string} subId The sub-analysis ID.
-	 * @returns {Promise<RawSubAnalysisMetadata>} Sample metadata.
+	 * @returns {Promise<SubAnalysisMetadata>} Sample metadata.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-sub-analysismetadata
 	 */
 
-	async getSubAnalysisMetadata(analysisId: string, subId: string): Promise<RawSubAnalysisMetadata> {
+	async getSubAnalysisMetadata(
+		analysisId: string,
+		subId: string
+	): Promise<SubAnalysisMetadataData> {
 		const res = await this.client.got.get(`analyses/${analysisId}/sub-analyses/${subId}/metadata`);
 		return JSON.parse(res.body);
 	}
@@ -119,7 +122,7 @@ export class RawManager extends BaseManager {
 	 * @param {string} analysisId The analysis ID.
 	 * @param {string} subId The sub-analysis ID.
 	 * @param {string} subId The family ID.
-	 * @returns {Promise<Array<RawFamilyRelatedFileData>>} An array of family-related samples.
+	 * @returns {Promise<Array<FamilyRelatedFileData>>} An array of family-related samples.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#post-sub-analysiscode-reusefamiliesfamily-idfind-related-files
 	 */
@@ -128,7 +131,7 @@ export class RawManager extends BaseManager {
 		analysisId: string,
 		subId: string,
 		familyId: string
-	): Promise<Array<RawFamilyRelatedFileData>> {
+	): Promise<Array<FamilyRelatedFileData>> {
 		let res = await this.client.got.post(
 			`analyses/${analysisId}/sub-analyses/${subId}/code-reuse/families/${familyId}/find-related-files`
 		);
@@ -143,12 +146,12 @@ export class RawManager extends BaseManager {
 	 *
 	 * @param {string} analysisId The analysis ID.
 	 * @param {string} subId The sub-analysis ID.
-	 * @returns {Promise<RawCodeReuseData>} RawCodeReuseData.
+	 * @returns {Promise<CodeReuseData>} CodeReuseData.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#get-sub-analysiscode-reuse
 	 */
 
-	async getCodeReuse(analysisId: string, subId: string): Promise<RawCodeReuseData> {
+	async getCodeReuse(analysisId: string, subId: string): Promise<CodeReuseData> {
 		const res = await this.client.got.get(
 			`analyses/${analysisId}/sub-analyses/${subId}/code-reuse`
 		);
@@ -160,7 +163,7 @@ export class RawManager extends BaseManager {
 	 *
 	 * @param {string} analysisId The analysis ID.
 	 * @param {string} subId The sub-analysis ID.
-	 * @returns {Promise<Array<RawRelatedSampleData>>} An array of previously analyzed files.
+	 * @returns {Promise<Array<RelatedSampleData>>} An array of previously analyzed files.
 	 *
 	 * @see https://analyze.intezer.com/api/docs/documentation#post-sub-analysisget-account-related-samples
 	 */
@@ -168,7 +171,7 @@ export class RawManager extends BaseManager {
 	async getAccountRelatedSamples(
 		analysisId: string,
 		subId: string
-	): Promise<Array<RawRelatedSampleData>> {
+	): Promise<Array<RelatedSampleData>> {
 		const res = await this.client.got.get(
 			`analyses/${analysisId}/sub-analyses/${subId}/code-reuse`
 		);

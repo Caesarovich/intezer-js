@@ -8,7 +8,7 @@
 
 This is a list of things that needs to be done before considering this library 'complete' (Objective v3.0)
 
-Raw API wrapping:
+API wrapping:
 
 - Community endpoints ✅
 - Premium endpoints ❌
@@ -70,20 +70,20 @@ const client = await new Client('API_KEY').init().catch(console.error);
 const analysis = await client.analyses.get('ANALYSIS_ID').catch(console.error);
 ```
 
-### Or with the **RawAPI**
+### Or with the **raw API**
 
-> Note: _It is recommended to use the **Client** over the **RawAPI** because it provides much ease of use._
+> Note: _It is recommended to use the **Client** over the **API** because it provides much ease of use._
 
 ```js
-import { RawAPI } from 'intezer-js';
+import { API } from 'intezer-js';
 
 //...
 
 // Fetch an AccessToken using an API Key
-const token = await RawAPI.getAccessToken('API_KEY').catch(console.error);
+const token = await API.getAccessToken('API_KEY').catch(console.error);
 
-// Retrieve RawAnalysisData using the AccessToken and analysis ID.
-const analysis = await RawAPI.getAnalysis(token, 'ANALYSIS_ID').catch(console.error);
+// Retrieve AnalysisData using the AccessToken and analysis ID.
+const analysis = await API.getAnalysis(token, 'ANALYSIS_ID').catch(console.error);
 ```
 
 ## 📕 Documentation

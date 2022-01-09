@@ -1,5 +1,5 @@
 import { BaseManager, AnalysisSubAnalysesManager } from '.';
-import type { Client, RawAnalysisData, Verdict } from '..';
+import type { Client, AnalysisData, Verdict } from '..';
 
 /**
  * The results of an Analysis.
@@ -61,7 +61,7 @@ export class Analysis extends BaseManager {
 	 */
 	subAnalyses: AnalysisSubAnalysesManager;
 
-	constructor(client: Client, data: RawAnalysisData) {
+	constructor(client: Client, data: AnalysisData) {
 		super(client);
 
 		this.id = data.analysis_id;

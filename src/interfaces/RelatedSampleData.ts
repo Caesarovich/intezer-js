@@ -1,13 +1,13 @@
-import type { RawAnalysisData } from '.';
+import type { AnalysisData } from '.';
 
 /**
  * Details about a previously analyzed sample.
  */
-export interface RawRelatedSampleData {
+export interface RelatedSampleData {
 	/**
 	 * Details about the matching sample's analysis.
 	 */
-	analysis: RawAnalysisData;
+	analysis: AnalysisData;
 
 	/**
 	 * Details about the reused genes.

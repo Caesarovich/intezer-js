@@ -1,6 +1,6 @@
 export * from './BaseManager';
 export * from './CachedManager';
-export * from './RawManager';
+export * from './APIManager';
 export * from './TokenManager';
 export * from './Analysis';
 export * from './AnalysesManager';
