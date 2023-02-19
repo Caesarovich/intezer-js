@@ -9,3 +9,4 @@ export * from './AnalyzeOptions';
 export * from './FetchOptions';
 export * from './GetOptions';
 export * from './ClientOptions';
+export * from './AccountData';

@@ -10,6 +10,7 @@ import {
 	SubAnalysisData,
 	SubAnalysisMetadata,
 	resolveFile,
+	AccountData,
 } from '.';
 
 export namespace API {
@@ -22,6 +23,51 @@ export namespace API {
 		const res = await gotClient('is-available');
 
 		return JSON.parse(res.body).is_available;
+	}
+
+	/**
+	 * Get details about an user account.
+	 *
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}.
+	 * @param {string} accountId The user's ID. Can be `'me'` if you want to retrieve current account.
+	 * @param {Boolean} [full] Should get the full account details. This option is available for organization's administrators only.
+	 * @returns {Promise<AccountData>}
+	 */
+	export async function getAccount(
+		token: string,
+		accountId: string | 'me',
+		full?: boolean
+	): Promise<AccountData> {
+		full ??= false;
+
+		const res = await gotClient(`accounts/${accountId}`, {
+			searchParams: new URLSearchParams([['full', full.toString()]]),
+			headers: {
+				authorization: token,
+			},
+		});
+
+		return JSON.parse(res.body).result;
+	}
+
+	/**
+	 * Get all accounts in the organization. This route is only available for the organization's administrators.
+	 *
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}.
+	 * @param {Boolean} [full] Should get the full account details. This option is available for organization's administrators only.
+	 * @returns {Promise<AccountData>}
+	 */
+	export async function getAccounts(token: string, full?: boolean): Promise<AccountData> {
+		full ??= false;
+
+		const res = await gotClient('accounts', {
+			searchParams: new URLSearchParams([['full', full.toString()]]),
+			headers: {
+				authorization: token,
+			},
+		});
+
+		return JSON.parse(res.body).result;
 	}
 
 	/**
@@ -74,6 +120,42 @@ export namespace API {
 		if (options?.zipPassword) form.append('zip_password', options.zipPassword);
 
 		const res = await gotClient.post(`analyze`, {
+			headers: {
+				authorization: token,
+			},
+			body: form,
+		});
+
+		return API.getAnalysis(token, JSON.parse(res.body).result_url.slice(10));
+	}
+
+	/**
+	 * Submits the hash of a file to be analyzed. Only the hash of the file is submitted. This endpoint enables you to analyze a file without actually submitting it.
+	 *
+	 * @param {string} token A valid API Access token. Get one with {@link API.getAccessToken **getAccessToken**}
+	 * @param {string} file The file to analyze
+	 * @param {AnalyzeOptions} [options] Analysis options
+	 * @returns {Promise<AnalysisData>} Analysis data.
+	 *
+	 * @see https://analyze.intezer.com/api/docs/documentation#post-analyze
+	 */
+	export async function analyzeByHash(
+		token: string,
+		hash: string,
+		options?: AnalyzeOptions
+	): Promise<AnalysisData> {
+		const form = new FormData();
+
+		form.append('hash', hash);
+
+		if (options?.codeItemType) form.append('code_item_type', options.codeItemType);
+		if (options?.disableDynamicExecution)
+			form.append('disable_dynamic_execution', String(options.disableDynamicExecution));
+		if (options?.disableStaticExtraction)
+			form.append('disable_static_extraction', String(options.disableStaticExtraction));
+		if (options?.zipPassword) form.append('zip_password', options.zipPassword);
+
+		const res = await gotClient.post(`analyze-by-hash`, {
 			headers: {
 				authorization: token,
 			},
